@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="/css/navbar.css" />
+
+<section class="navbar">
+  <div class="blend">
+    <div class="logo-div">
+      <img class="logo" src="../images/icon1.png" alt="" />
+    </div>
+    <div class="nav-options">
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/menu">Menu</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        <% if(loggedIn) { %>
+        <li><a href="/myProfile">My Profile</a></li>
+        <% } else {%>
+        <li><a href="/login">Login</a></li>
+        <% } %>
+        <li class="cart-icon">
+          <a href="/cart" class="cart-anchor">Cart <span class="badge items-in-cart"><%= session.cart ? session.cart.totalQty : 0%></span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

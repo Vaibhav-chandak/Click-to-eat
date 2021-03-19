@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200; 300;400;500;600;700;800&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Poppins, sans-serif
+}
+
+.container1 {
+  position: relative;
+  width: 100%;
+  background-color: #fff;
+  min-height: 100vh
+}
+
+.overflow-hidden {
+  overflow: hidden
+}
+
+.signin-signup {
+  width: 100%;
+  margin-top: 20%
+}
+
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column
+}
+
+.title {
+  font-size: 2.2rem;
+  color: #444;
+  margin-bottom: 10px
+}
+
+.input-field {
+  max-width: 380px;
+  width: 100%;
+  background-color: #f0f0f0;
+  margin: 10px 0;
+  height: 55px;
+  border-radius: 55px;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  padding: 0 .4rem;
+  position: relative
+}
+
+input:-webkit-autofill, input:-webkit-autofill:active, input:-webkit-autofill:focus, input:-webkit-autofill:hover {
+  box-shadow: 0 0 0 30px #f0f0f0 inset!important;
+  border-radius: inherit
+}
+
+.input-field i {
+  text-align: center;
+  line-height: 55px;
+  color: #acacac;
+  font-size: 1.1rem
+}
+
+.input-field input, .input-field select {
+  background: 0 0;
+  outline: none;
+  border: none;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.input-field input::placeholder {
+  color: #aaa;
+  font-weight: 500
+}
+
+input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0
+}
+
+.input-field .toggle-password {
+  margin-left: 330px;
+  margin-top: -35px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.social-text {
+  padding: .7rem 0;
+  font-size: 1rem
+}
+
+.social-media {
+  display: flex;
+  justify-content: center
+}
+
+.social-icon {
+  height: 46px;
+  width: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 .45rem;
+  color: #333;
+  border-radius: 50%;
+  border: 1px solid #333;
+  text-decoration: none;
+  font-size: 1.1rem
+}
+
+.social-icon:hover {
+  color: #4481eb;
+  border-color: #4481eb
+}
+
+.btn {
+  width: 150px;
+  background-color: #5995fd;
+  border: none;
+  outline: 0;
+  height: 49px;
+  border-radius: 49px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0;
+  cursor: pointer
+}
+
+.btn:hover {
+  background-color: #4d84e2
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  z-index: 1
+}
+
+.panel .content {
+  width: 70%;
+  color: #fff;
+}
+
+.panel h3 {
+  font-weight: 600;
+  line-height: 1;
+  font-size: 1.5rem
+}
+
+.panel p {
+  font-size: .95rem;
+  padding: .7rem 0
+}
+
+.btn.transparent {
+  margin: 0;
+  background: 0 0;
+  border: 2px solid #fff;
+  width: 130px;
+  height: 41px;
+  font-weight: 600;
+  font-size: .8rem
+}
+
+.container1:before {
+  content: "";
+  position: absolute;
+  height: 2000px;
+  width: 2000px;
+  top: -10%;
+  right: 48%;
+  transform: translateY(-50%);
+  background-image: linear-gradient(-45deg, #4481eb 0, #04befe 100%);
+  border-radius: 50%
+}
+
+.invalid {
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px red;
+}
+
+.errors-div:first-of-type {
+  margin-top: -40%;
+}

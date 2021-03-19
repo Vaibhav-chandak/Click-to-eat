@@ -1,0 +1,118 @@
+<%- include ("partials/header") %>
+
+<div class="container1 row">
+  <div class="panel col-lg-6" style="margin-top: -10%">
+    <div class="content">
+      <h3>One of us ?</h3>
+      <p>Already have an account, just sign in and order your favourite food sitting at your home, from our website</p>
+      <a href="/login">
+        <button class="btn transparent" id="sign-in-btn">Sign in</button>
+      </a>
+    </div>
+  </div>
+  <div class="forms-container col-lg-6">
+    <div class="signin-signup">
+      <!-- Sign up form -->
+      <form action="/register" method="POST" class="sign-up-form" onsubmit="return validate">
+        <div class="error-div">
+          <% if(errors.length> 0) {%> <% errors.forEach(error=> { %>
+          <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
+            <%= error.text %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <% }) %> <% } %>
+        </div>
+        <h2 class="title">Sign up</h2>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input type="text" name="name" placeholder="Name" pattern="^(?!\s*$).+" title="Enter Your Full Name" value="<%=name%>" required />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-envelope"></i>
+          <input type="email" name="email" placeholder="Email" value="<%=email%>" required />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="password" placeholder="Password" title="Your password must contain uppercase, lowercase, special character and number" pattern="(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$" value="<%=password%>" required />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-phone-alt"></i>
+          <input type="text" pattern="[1-9]{1}[0-9]{9}" name="phone" placeholder="Phone Number" title="Enter phone number without country code or 0" value="<%=phoneNumber%>" required />
+        </div>
+        <!-- <div class="input-field">
+                <i class="fas fa-calendar"></i>
+                <input type="date" min="1905-01-01" max="2002-12-31" name="birthday" placeholder="ENter DOB"
+                    required />
+            </div> -->
+        <div class="input-field">
+          <i class="fas fa-venus-mars"></i>
+          <select name="gender" id="" required>
+            <option value="" <%=gender=='None'?'selected':''%> disabled hidden> Gender</option>
+            <option value="Male" <%=gender=='Male'?'selected':''%>>Male</option>
+            <option value="Female" <%=gender=='Female'?'selected':''%>>Female</option>
+            <option value="Other" <%=gender=='Other'?'selected':''%>>Other</option>
+          </select>
+        </div>
+        <div class="input-field">
+          <i class="fas fa-calendar"></i>
+          <input type="text" name="address" placeholder="Address" pattern="^(?!\s*$).+" onclick="validate()" title="Please fill your address" value="<%=address %>" required />
+        </div>
+
+        <input type="submit" class="btn signUpBtn" value="Sign up" />
+        <p class="social-text">Or Sign up with social platforms</p>
+        <div class="social-media">
+          <a href="#" class="social-icon">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-google"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const sign_in_btn = document.querySelector("#sign-in-btn");
+  const sign_up_btn = document.querySelector("#sign-up-btn");
+  const container = document.querySelector(".container1");
+
+  // Validations
+  const formFields = document.querySelectorAll("input");
+  let isEverythingValid = false;
+  const patterns = {
+    name: new RegExp("^(?!\s*$).+"),
+    email: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+    password: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/,
+    phone: /^\d{10}$/,
+    address: new RegExp("^(?!\s*$).+"),
+  };
+
+  // validation function
+  function validate(field, regex) {
+    var fieldTarget = field.target;
+    if (regex.test(fieldTarget.value)) {
+      field.path[1].classList.remove("invalid");
+      isEverythingValid = true;
+    } else {
+      field.path[1].classList.add("invalid");
+      isEverythingValid = false;
+    }
+  }
+
+  formFields.forEach((formField) => {
+    formField.addEventListener("keyup", (e) => {
+      console.log(e);
+      validate(e, patterns[e.target.attributes.name.value]);
+    });
+  });
+</script>
+
+<%- include ("partials/footer") %>

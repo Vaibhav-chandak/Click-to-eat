@@ -1,0 +1,55 @@
+<%- include ("partials/header") %> <%- include ("partials/navbar") %>
+<!-- If cart exists than display cart else display a message that cart is empty -->
+<% if(session.cart) {%>
+<div class="container-fluid main">
+  <h1><img src="images/cart-black.png" alt="" /> Shopping cart</h1>
+  <hr />
+  <% for(let dish of Object.values(session.cart.items)) { %>
+  <div class="row item-div">
+    <div class="col-lg-3 image-div">
+      <img src="<%=dish.item.image%>" alt="Item Image" class="item-img" />
+    </div>
+    <div class="col-lg-9 item">
+      <div class="temp">
+        <h4 class="item-title"><%=dish.item.title%></h4>
+        <p class="item-price">₹<%=dish.item.price%></p>
+        <p class="item-qty"><%=dish.qty%> Pcs</p>
+        <p class="item-total-price">₹<%=dish.item.price*dish.qty%></p>
+      </div>
+      <hr />
+      <p class="item-desc"><%=dish.item.description%></p>
+      <div class="remove-buttons">
+        <form action="/removeOneCart" method="POST">
+          <input type="hidden" name="dishID" value="<%=dish.item._id%>" />
+          <button type="submit" class="btn btn-primary remove-one">Remove One</button>
+        </form>
+        <form action="/removeAllCart" method="POST">
+          <input type="hidden" name="dishID" value="<%=dish.item._id%>" />
+          <button type="submit" class="btn btn-primary remove-all">Remove All</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <% } %>
+  <div class="total-price-div">
+    <h3 class="total-price-heading">
+      Total Amount:
+      <span class="total-price">₹<%=session.cart.totalPrice%></span>
+    </h3>
+    <button type="submit" class="btn checkout-btn">Checkout</button>
+  </div>
+</div>
+<% } else {%>
+<div class="empty-cart">
+  <h2>Cart Empty 😕</h2>
+  <p class="empty-text">
+    You probably didn't ordered anything yet. <br />
+    To order a dish, go to the main page.
+  </p>
+  <div class="empty-cart-image-div">
+    <img class="empty-cart-image" src="images/empty-cart.png" alt="Empty Cart" />
+  </div>
+  <a href="/home" class="btn btn-primary">Go Back</a>
+</div>
+<%}%> <%- include ("partials/contact-partial") %> <%- include ("partials/footer") %>

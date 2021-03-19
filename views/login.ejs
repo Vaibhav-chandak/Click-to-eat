@@ -1,0 +1,66 @@
+<%- include ("partials/header") %>
+<div class="container1 overflow-hidden row">
+  <div class="panel col-lg-6">
+    <div class="content">
+      <h3>New here ?</h3>
+      <p>Not having an account till now ? Sign up for free and order your favourite food, from our website</p>
+      <a href="/register">
+        <button class="btn transparent" id="sign-up-btn">Sign up</button>
+      </a>
+    </div>
+  </div>
+  <div class="forms-container col-lg-6">
+    <div class="signin-signup">
+      <!-- Sign in form -->
+      <form action="login" method="POST" class="sign-in-form">
+        <% if(errors.length> 0) {%> <% errors.forEach(error=> { %>
+        <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
+          <%= error.text %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>  
+        <% }) %> <% } %>
+        <h2 class="title">Sign in</h2>
+        <div class="input-field">
+          <i class="fas fa-envelope"></i>
+          <input type="email" name="email" placeholder="Email" required />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="password" name="password" placeholder="Password" autocomplete="off" required />
+          <span id="togglePassword" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+        </div>
+        <input type="submit" value="Sign In" class="btn solid" />
+        <p class="social-text">Or Sign in with social platforms</p>
+        <div class="social-media">
+          <a href="#" class="social-icon">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-google"></i>
+          </a>
+          <a href="#" class="social-icon">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const togglePassword = document.querySelector("#togglePassword");
+  const password = document.querySelector("#password");
+
+  togglePassword.addEventListener("click", function (e) {
+    // toggle the type attribute
+    const type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
+    // toggle the eye slash icon
+    this.classList.toggle("fa-eye-slash");
+  });
+</script>
+
+<%- include ("partials/footer") %>

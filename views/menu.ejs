@@ -1,0 +1,121 @@
+<%- include ("partials/header") %> <%- include ("partials/navbar") %>
+<!-- Toastr CSS CDN for push notifications -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+<div class="menu-intro">
+  <h1 class="menu-intro-heading">Menu.</h1>
+</div>
+
+<div class="container">
+  <div class="wrapper">
+    <div class="menu">
+      <!-- For the first category heading -->
+      <div class="heading-div">
+        <h1 class="heading" id="<%=items[0].category%>"><%=items[0].category%></h1>
+      </div>
+
+      <!-- Loop to print all the menu items taken from database -->
+      <% for(var i=0; i < items.length; i++) {%>
+      <!-- Print the menu items -->
+      <div class="single-menu">
+        <img src="<%=items[i].image%>" alt="Food Image" />
+        <div class="menu-content">
+          <h4><%=items[i].title%><span>₹<%=items[i].price%></span></h4>
+          <p><%=items[i].description%></p>
+          <div class="bottom-buttons">
+            <div class="qty-input">
+              <button class="qty-count qty-count--minus" data-action="minus" type="button" disabled="true">-</button>
+              <input class="product-qty" type="number" name="product-qty" min="1" max="10" value="1" />
+              <button class="qty-count qty-count--add" data-action="add" type="button">+</button>
+            </div>
+            <button data-dish="<%= JSON.stringify(items[i]) %>" type="submit" class="btn btn-primary addToCartBtn">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Print all other category heading other than first and check for all the elements
+             other than last+1 to avoid array index out of bound error -->
+      <% if((items[i].category != items[i==items.length-1? (i):(i+1)].category)) {%>
+      <div class="heading-div">
+        <h1 class="heading" id="<%=items[i+1].category%>"><%=items[i+1].category%></h1>
+      </div>
+      <% } %> <% } %>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+  //This script is for quantity related operation
+  var QtyInput = (function () {
+    var $qtyInputs = $(".qty-input");
+
+    if (!$qtyInputs.length) {
+      return;
+    }
+
+    var $inputs = $qtyInputs.find(".product-qty");
+    var $countBtn = $qtyInputs.find(".qty-count");
+    var qtyMin = parseInt($inputs.attr("min"));
+    var qtyMax = parseInt($inputs.attr("max"));
+
+    $inputs.change(function () {
+      var $this = $(this);
+      var $minusBtn = $this.siblings(".qty-count--minus");
+      var $addBtn = $this.siblings(".qty-count--add");
+      var qty = parseInt($this.val());
+
+      if (isNaN(qty) || qty <= qtyMin) {
+        $this.val(qtyMin);
+        $minusBtn.attr("disabled", true);
+      } else {
+        $minusBtn.attr("disabled", false);
+
+        if (qty >= qtyMax) {
+          $this.val(qtyMax);
+          $addBtn.attr("disabled", true);
+        } else {
+          $this.val(qty);
+          $addBtn.attr("disabled", false);
+        }
+      }
+    });
+
+    $countBtn.click(function () {
+      var operator = this.dataset.action;
+      var $this = $(this);
+      var $input = $this.siblings(".product-qty");
+      var qty = parseInt($input.val());
+
+      if (operator == "add") {
+        qty += 1;
+        if (qty >= qtyMin + 1) {
+          $this.siblings(".qty-count--minus").attr("disabled", false);
+        }
+
+        if (qty >= qtyMax) {
+          $this.attr("disabled", true);
+        }
+      } else {
+        qty = qty <= qtyMin ? qtyMin : (qty -= 1);
+
+        if (qty == qtyMin) {
+          $this.attr("disabled", true);
+        }
+
+        if (qty < qtyMax) {
+          $this.siblings(".qty-count--add").attr("disabled", false);
+        }
+      }
+
+      $input.val(qty);
+    });
+  })();
+</script>
+
+<!-- Axios is used to send data on backend -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<!-- Toastr JS CDN for push notification -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script type="module" src="../js/menu.js"></script>
+<%- include ("partials/contact-partial") %> <%- include ("partials/footer") %>
