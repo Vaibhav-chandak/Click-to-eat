@@ -71,11 +71,37 @@ passport.use({ usernameField: "email", }, User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Display Landing Page
+// Render Home page to the user
 app.get("/", (req, res) => {
-    res.render("landing", {
-        title: "Landing Page",
-        style: "landing"
+    let randomIndex = [];
+    // This function generates and stores a unique random number whenever called
+    function generateUniqueRandom(maxNr) {
+        //Generate random number
+        let random = (Math.floor(Math.random() * maxNr));
+        //Converting to number
+        random = Number(random);
+        if (!randomIndex.includes(random)) {
+            randomIndex.push(random);
+            return random;
+        } else {
+            return generateUniqueRandom(maxNr);
+        }
+    }
+    // Render home page with 5 random dish
+    Product.find({}, (err, results) => {
+        if (!err) {
+            generateUniqueRandom(results.length);
+            generateUniqueRandom(results.length);
+            generateUniqueRandom(results.length);
+            generateUniqueRandom(results.length);
+            generateUniqueRandom(results.length);
+            res.render("home", {
+                title: "Home Page",
+                style: "home",
+                randomIndex: randomIndex,
+                photos: results
+            });
+        }
     });
 });
 
@@ -178,40 +204,6 @@ app.post("/login", (req, res) => {
         } else {
             passport.authenticate("local")(req, res, function () {
                 res.redirect("/home");
-            });
-        }
-    });
-});
-
-// Render Home page to the user
-app.get("/home", (req, res) => {
-    let randomIndex = [];
-    // This function generates and stores a unique random number whenever called
-    function generateUniqueRandom(maxNr) {
-        //Generate random number
-        let random = (Math.floor(Math.random() * maxNr));
-        //Converting to number
-        random = Number(random);
-        if (!randomIndex.includes(random)) {
-            randomIndex.push(random);
-            return random;
-        } else {
-            return generateUniqueRandom(maxNr);
-        }
-    }
-    // Render home page with 5 random dish
-    Product.find({}, (err, results) => {
-        if (!err) {
-            generateUniqueRandom(results.length);
-            generateUniqueRandom(results.length);
-            generateUniqueRandom(results.length);
-            generateUniqueRandom(results.length);
-            generateUniqueRandom(results.length);
-            res.render("home", {
-                title: "Home Page",
-                style: "home",
-                randomIndex: randomIndex,
-                photos: results
             });
         }
     });
