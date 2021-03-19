@@ -10,10 +10,6 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const MongoStore = require('connect-mongo');
 const flash = require("express-flash");
 
-// My imports
-const Cart = require("./models/cart");
-const { isEmpty } = require("lodash");
-
 const app = express();
 const url = 'mongodb://localhost:27017/ofdsDB';
 mongoose.connect(url, {
@@ -58,13 +54,14 @@ const upload = multer({ storage: storage });
 
 // User schema
 const userSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String,
-    phoneNumber: String,
-    gender: String,
-    address: String
-});
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    phoneNumber: { type: String, required: true },
+    gender: { type: String, required: true },
+    address: { type: String, required: true },
+    role: { type: String, default: "Customer" }
+}, { timestamps: true });
 
 userSchema.plugin(passportLocalMongoose);
 
@@ -84,27 +81,27 @@ app.get("/", (req, res) => {
 
 // Display Login Page
 app.get("/login", (req, res) => {
+    // If user is already logged in do not let user access login page
     if (req.isAuthenticated()) {
         return res.redirect("/home");
     }
-    let errors = [];
     res.render("login", {
         title: "Login Page",
         style: "login",
-        errors: errors
+        errors: []
     });
 });
 
 // Display Register Page
 app.get("/register", (req, res) => {
+    // If user is already logged in do not let user access register page
     if (req.isAuthenticated()) {
         return res.redirect("/home");
     }
-    let errors = [];
     res.render("register", {
         title: "Register Page",
         style: "login",
-        errors: errors,
+        errors: [],
         name: _.capitalize(req.body.name),
         email: _.capitalize(req.body.email),
         password: req.body.password,
@@ -120,8 +117,7 @@ app.post("/register", (req, res) => {
     let errors = [];
     // Check if user with same email or password exists already
     User.find({}, (err, foundUser) => {
-        if (err)
-            res.send(err);
+        if (err) res.send(err);
         if (foundUser) {
             foundUser.map(users => {
                 if (users.email === req.body.email)
@@ -129,51 +125,37 @@ app.post("/register", (req, res) => {
                 if (users.phoneNumber === req.body.phone)
                     errors.push({ text: "Phone number already exist!" });
             });
-            // If there is error it will rerender page with error else it will save the user into database 
-            if (errors.length > 0) {
-                res.render("register", {
-                    title: "Register",
-                    style: "login",
-                    errors: errors,
-                    name: _.capitalize(req.body.name),
-                    email: _.capitalize(req.body.email),
-                    password: req.body.password,
-                    phoneNumber: req.body.phone,
-                    gender: req.body.gender,
-                    address: req.body.address
-                });
-            } else {
-                // const user = new User({
-                // name: _.capitalize(req.body.name),
-                // email: _.capitalize(req.body.email),
-                // password: req.body.password,
-                // phoneNumber: req.body.phone,
-                // gender: req.body.gender,
-                // address: req.body.address
-                // });
-                // user.save((err) => {
-                //     if (!err)
-                //         res.redirect("/home");
-                //     else
-                //         res.send(err);
-                // });
-                User.register(new User({
-                    name: _.capitalize(req.body.name),
-                    email: _.capitalize(req.body.email),
-                    phoneNumber: req.body.phone,
-                    gender: req.body.gender,
-                    address: req.body.address,
-                    username: _.capitalize(req.body.email),
-                }), req.body.password, function (err, user) {
-                    if (err) {
-                        res.send(err);
-                    } else {
-                        passport.authenticate("local")(req, res, function () {
-                            res.redirect("/login");
-                        });
-                    }
-                });
-            }
+        }
+        // If there is error it will rerender page with error else it will save the user into database 
+        if (errors.length > 0) {
+            res.render("register", {
+                title: "Register",
+                style: "login",
+                errors: errors,
+                name: _.capitalize(req.body.name),
+                email: _.capitalize(req.body.email),
+                password: req.body.password,
+                phoneNumber: req.body.phone,
+                gender: req.body.gender,
+                address: req.body.address
+            });
+        } else {
+            User.register(new User({
+                name: _.capitalize(req.body.name),
+                email: _.capitalize(req.body.email),
+                phoneNumber: req.body.phone,
+                gender: req.body.gender,
+                address: req.body.address,
+                username: _.capitalize(req.body.email),
+            }), req.body.password, function (err, user) {
+                if (err) {
+                    res.send(err);
+                } else {
+                    passport.authenticate("local")(request, response, function () {
+                        res.redirect("/login");
+                    });
+                }
+            });
         }
     });
 });
@@ -181,23 +163,6 @@ app.post("/register", (req, res) => {
 // Handle login request
 app.post("/login", (req, res) => {
     let errors = [];
-    // User.findOne({ email: req.body.email }, (err, foundUser) => {
-    //     if (err) res.send(err);
-    //     if (foundUser) {
-    //         // If email matches check for password and if matches redirect to home else push text in errors[] 
-    //         if (foundUser.password === req.body.password) res.redirect("/home");
-    //         else errors.push({ text: "Email or password is incorrect!" });
-    //     } else errors.push({ text: "Email or password is incorrect!" });
-
-    //     // If errors are there rerender page with errors
-    //     if (errors.length > 0) {
-    //         res.render("login", {
-    // title: "Login Page",
-    // style: "login",
-    // errors: errors
-    //         });
-    //     }
-    // });
     const user = new User({
         username: req.body.email,
         password: req.body.password
@@ -210,7 +175,6 @@ app.post("/login", (req, res) => {
                 style: "login",
                 errors: errors
             });
-            console.log(err);
         } else {
             passport.authenticate("local")(req, res, function () {
                 res.redirect("/home");
@@ -219,18 +183,15 @@ app.post("/login", (req, res) => {
     });
 });
 
-
+// Render Home page to the user
 app.get("/home", (req, res) => {
-
     let randomIndex = [];
     // This function generates and stores a unique random number whenever called
     function generateUniqueRandom(maxNr) {
         //Generate random number
         let random = (Math.floor(Math.random() * maxNr));
-
         //Converting to number
         random = Number(random);
-
         if (!randomIndex.includes(random)) {
             randomIndex.push(random);
             return random;
@@ -238,9 +199,9 @@ app.get("/home", (req, res) => {
             return generateUniqueRandom(maxNr);
         }
     }
+    // Render home page with 5 random dish
     Product.find({}, (err, results) => {
         if (!err) {
-            generateUniqueRandom(results.length);
             generateUniqueRandom(results.length);
             generateUniqueRandom(results.length);
             generateUniqueRandom(results.length);
@@ -256,6 +217,7 @@ app.get("/home", (req, res) => {
     });
 });
 
+// Render menu page, sorted in ascending order based on category field of items
 app.get("/menu", (req, res) => {
     Product.find({}).sort({ "category": "asc" }).exec((err, result) => {
         if (!err) {
@@ -268,23 +230,12 @@ app.get("/menu", (req, res) => {
     });
 });
 
-app.get("/dish/:dishID", (req, res) => {
-    // console.log(req.params.dishID);
-    Product.find({ _id: req.params.dishID }, (err, result) => {
-        if (!err) {
-            res.render("dish", {
-                title: "Dish Name",
-                style: "dish",
-                item: result[0]
-            });
-        }
-    });
-});
-
+// To render my profile page
 app.get("/myProfile", (req, res) => {
     res.send("My Profile");
 });
 
+// To render cart page
 app.get("/cart", (req, res) => {
     res.render("cart", {
         title: "Cart Page",
@@ -292,6 +243,7 @@ app.get("/cart", (req, res) => {
     });
 });
 
+// To update cart or insert data into cart
 app.post("/updateCart", (req, res) => {
     if (!req.session.cart) {
         req.session.cart = {
@@ -316,6 +268,7 @@ app.post("/updateCart", (req, res) => {
     return res.json({ totalQty: req.session.cart.totalQty });
 });
 
+// To reduce quantity by 1 for an item from cart
 app.post("/removeOneCart", (req, res) => {
     const dishID = req.body.dishID;
     // Reduce quantity and price
@@ -334,6 +287,7 @@ app.post("/removeOneCart", (req, res) => {
     res.redirect("/cart");
 });
 
+// To remove particular item from cart
 app.post("/removeAllCart", (req, res) => {
     const dishID = req.body.dishID;
     // Reduce total quantity and price
@@ -348,12 +302,13 @@ app.post("/removeAllCart", (req, res) => {
     res.redirect("/cart");
 });
 
+// For logout
 app.get("/logout", (req, res) => {
     req.logout();
     res.redirect('/login');
 });
 
-// Upload photo temporary
+// Upload product temporary
 const productSchema = new mongoose.Schema({
     image: String,
     title: String,
@@ -380,6 +335,7 @@ app.post("/uploadPhoto", upload.single("image"), (req, res) => {
     });
 });
 
+// Start server
 app.listen(3000, () => {
     console.log("Server is running at port 3000!");
 });
