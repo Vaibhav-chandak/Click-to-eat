@@ -99,6 +99,11 @@
     display: flex;
 }
 
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 /* Quantity */
 
 .qty-input {

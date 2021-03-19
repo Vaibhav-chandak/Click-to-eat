@@ -8,7 +8,6 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const MongoStore = require('connect-mongo');
-const flash = require("express-flash");
 
 const app = express();
 const url = 'mongodb://localhost:27017/ofdsDB';
@@ -56,7 +55,7 @@ const upload = multer({ storage: storage });
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    // password: { type: String },
     phoneNumber: { type: String, required: true },
     gender: { type: String, required: true },
     address: { type: String, required: true },
@@ -67,12 +66,122 @@ userSchema.plugin(passportLocalMongoose);
 
 const User = mongoose.model("User", userSchema);
 
-passport.use({ usernameField: "email", }, User.createStrategy());
+passport.use({ usernameField: "email" }, User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Render Home page to the user
+// Display Landing Page
 app.get("/", (req, res) => {
+    res.redirect("/home");
+});
+
+// Display Login Page
+app.get("/login", (req, res) => {
+    console.log("Get Login");
+    // If user is already logged in do not let user access login page
+    if (req.isAuthenticated()) {
+        return res.redirect("/home");
+    }
+    res.render("login", {
+        title: "Login Page",
+        style: "login",
+        errors: []
+    });
+});
+
+// Display Register Page
+app.get("/register", (req, res) => {
+    // If user is already logged in do not let user access register page
+    if (req.isAuthenticated()) {
+        return res.redirect("/home");
+    }
+    res.render("register", {
+        title: "Register Page",
+        style: "login",
+        errors: [],
+        name: _.capitalize(req.body.name),
+        email: _.capitalize(req.body.email),
+        phoneNumber: req.body.phone,
+        gender: 'None',
+        address: req.body.address
+    });
+});
+
+// Handling new user registration
+app.post("/register", (req, res) => {
+    // Make the errors array empty so that error do not get repeated
+    let errors = [];
+    // Check if user with same email or password exists already
+    User.find({}, (err, foundUser) => {
+        if (err)
+            res.send(err);
+        if (foundUser) {
+            foundUser.map(users => {
+                if (users.email === req.body.email)
+                    errors.push({ text: "Email already exists!" });
+                if (users.phoneNumber === req.body.phone)
+                    errors.push({ text: "Phone number already exist!" });
+            });
+            // If there is error it will rerender page with error else it will save the user into database 
+            if (errors.length > 0) {
+                res.render("register", {
+                    title: "Register",
+                    style: "login",
+                    errors: errors,
+                    name: _.capitalize(req.body.name),
+                    email: _.capitalize(req.body.email),
+                    phoneNumber: req.body.phone,
+                    gender: req.body.gender,
+                    address: req.body.address
+                });
+            } else {
+                User.register(new User({
+                    name: _.capitalize(req.body.name),
+                    email: _.capitalize(req.body.email),
+                    phoneNumber: req.body.phone,
+                    gender: req.body.gender,
+                    address: req.body.address,
+                    username: _.capitalize(req.body.email),
+                }), req.body.password, function (err, user) {
+                    if (err) {
+                        res.send(err);
+                    } else {
+                        passport.authenticate("local")(req, res, function () {
+                            res.redirect("/login");
+                        });
+                    }
+                });
+            }
+        }
+    });
+});
+
+// Handle login request
+app.post("/login", (req, res) => {
+    let errors = [];
+    const user = new User({
+        username: req.body.email,
+        password: req.body.password
+    });
+    req.login(user, function (err) {
+        if (err) {
+            errors.push({ text: "Email or password is incorrect" });
+            res.render("login", {
+                title: "Login Page",
+                style: "login",
+                errors: errors
+            });
+            console.log(err);
+        } else {
+            passport.authenticate("local"), (req, res) => {
+                res.redirect("/home");
+            }
+        }
+    });
+});
+
+// Render Home page to the user
+app.get("/home", (req, res) => {
     let randomIndex = [];
     // This function generates and stores a unique random number whenever called
     function generateUniqueRandom(maxNr) {
@@ -100,110 +209,6 @@ app.get("/", (req, res) => {
                 style: "home",
                 randomIndex: randomIndex,
                 photos: results
-            });
-        }
-    });
-});
-
-// Display Login Page
-app.get("/login", (req, res) => {
-    // If user is already logged in do not let user access login page
-    if (req.isAuthenticated()) {
-        return res.redirect("/home");
-    }
-    res.render("login", {
-        title: "Login Page",
-        style: "login",
-        errors: []
-    });
-});
-
-// Display Register Page
-app.get("/register", (req, res) => {
-    // If user is already logged in do not let user access register page
-    if (req.isAuthenticated()) {
-        return res.redirect("/home");
-    }
-    res.render("register", {
-        title: "Register Page",
-        style: "login",
-        errors: [],
-        name: _.capitalize(req.body.name),
-        email: _.capitalize(req.body.email),
-        password: req.body.password,
-        phoneNumber: req.body.phone,
-        gender: 'None',
-        address: req.body.address
-    });
-});
-
-// Handling new user registration
-app.post("/register", (req, res) => {
-    // Make the errors array empty so that error do not get repeated
-    let errors = [];
-    // Check if user with same email or password exists already
-    User.find({}, (err, foundUser) => {
-        if (err) res.send(err);
-        if (foundUser) {
-            foundUser.map(users => {
-                if (users.email === req.body.email)
-                    errors.push({ text: "Email already exists!" });
-                if (users.phoneNumber === req.body.phone)
-                    errors.push({ text: "Phone number already exist!" });
-            });
-        }
-        // If there is error it will rerender page with error else it will save the user into database 
-        if (errors.length > 0) {
-            res.render("register", {
-                title: "Register",
-                style: "login",
-                errors: errors,
-                name: _.capitalize(req.body.name),
-                email: _.capitalize(req.body.email),
-                password: req.body.password,
-                phoneNumber: req.body.phone,
-                gender: req.body.gender,
-                address: req.body.address
-            });
-        } else {
-            User.register(new User({
-                name: _.capitalize(req.body.name),
-                email: _.capitalize(req.body.email),
-                phoneNumber: req.body.phone,
-                gender: req.body.gender,
-                address: req.body.address,
-                username: _.capitalize(req.body.email),
-            }), req.body.password, function (err, user) {
-                if (err) {
-                    res.send(err);
-                } else {
-                    passport.authenticate("local")(request, response, function () {
-                        res.redirect("/login");
-                    });
-                }
-            });
-        }
-    });
-});
-
-// Handle login request
-app.post("/login", (req, res) => {
-    let errors = [];
-    const user = new User({
-        username: req.body.email,
-        password: req.body.password
-    });
-    req.login(user, function (err) {
-        if (err) {
-            errors.push({ text: "Email or password is incorrect" });
-            res.render("login", {
-                title: "Login Page",
-                style: "login",
-                errors: errors
-            });
-        } else {
-            passport.authenticate("local")(req, res, function () {
-                res.redirect("/home");
             });
         }
     });
