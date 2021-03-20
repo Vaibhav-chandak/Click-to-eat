@@ -19,11 +19,11 @@
       <hr />
       <p class="item-desc"><%=dish.item.description%></p>
       <div class="remove-buttons">
-        <form action="/removeOneCart" method="POST">
+        <form action="/removeOne" method="POST">
           <input type="hidden" name="dishID" value="<%=dish.item._id%>" />
           <button type="submit" class="btn btn-primary remove-one">Remove One</button>
         </form>
-        <form action="/removeAllCart" method="POST">
+        <form action="/removeAll" method="POST">
           <input type="hidden" name="dishID" value="<%=dish.item._id%>" />
           <button type="submit" class="btn btn-primary remove-all">Remove All</button>
         </form>

@@ -22,7 +22,7 @@ body {
 
 .signin-signup {
   width: 100%;
-  margin-top: 20%
+  margin-top: 10%
 }
 
 form {
@@ -188,6 +188,10 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
   box-shadow: 0 0 10px red;
 }
 
-.errors-div:first-of-type {
-  margin-top: -40%;
+.error-div {
+  width: 100%;
+  color: red;
+  text-align: left;
+  margin-left: 330px;
+  margin-bottom: 5%;
 }

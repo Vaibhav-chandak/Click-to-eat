@@ -14,22 +14,19 @@
     <div class="signin-signup">
       <!-- Sign up form -->
       <form action="/register" method="POST" class="sign-up-form" onsubmit="return validate">
+        <% if(messages.error) { %> 
         <div class="error-div">
-          <% if(errors.length> 0) {%> <% errors.forEach(error=> { %>
-          <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
-            <%= error.text %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-          <% }) %> <% } %>
+          <span class="error"><%=messages.error%></span>
         </div>
+        <% } %> 
         <h2 class="title">Sign up</h2>
         <div class="input-field">
           <i class="fas fa-user"></i>
-          <input type="text" name="name" placeholder="Name" pattern="^(?!\s*$).+" title="Enter Your Full Name" value="<%=name%>" required />
+          <input type="text" name="name" placeholder="Name" pattern="^(?!\s*$).+" title="Enter Your Full Name" value="<%=messages.name%>" required/>
         </div>
         <div class="input-field">
           <i class="fas fa-envelope"></i>
-          <input type="email" name="email" placeholder="Email" value="<%=email%>" required />
+          <input type="email" name="email" placeholder="Email" value="<%=messages.email%>" required />
         </div>
         <div class="input-field">
           <i class="fas fa-lock"></i>
@@ -37,7 +34,7 @@
         </div>
         <div class="input-field">
           <i class="fas fa-phone-alt"></i>
-          <input type="text" pattern="[1-9]{1}[0-9]{9}" name="phone" placeholder="Phone Number" title="Enter phone number without country code or 0" value="<%=phoneNumber%>" required />
+          <input type="text" pattern="[1-9]{1}[0-9]{9}" name="phone" placeholder="Phone Number" title="Enter phone number without country code or 0" value="<%=messages.phone%>" required />
         </div>
         <!-- <div class="input-field">
                 <i class="fas fa-calendar"></i>
@@ -47,15 +44,15 @@
         <div class="input-field">
           <i class="fas fa-venus-mars"></i>
           <select name="gender" id="" required>
-            <option value="" <%=gender=='None'?'selected':''%> disabled hidden> Gender</option>
-            <option value="Male" <%=gender=='Male'?'selected':''%>>Male</option>
-            <option value="Female" <%=gender=='Female'?'selected':''%>>Female</option>
-            <option value="Other" <%=gender=='Other'?'selected':''%>>Other</option>
+            <option value="" selected disabled hidden> Gender</option>
+            <option value="Male" <%=messages.gender=='Male'?'selected':''%>>Male</option>
+            <option value="Female" <%=messages.gender=='Female'?'selected':''%>>Female</option>
+            <option value="Other" <%=messages.gender=='Other'?'selected':''%>>Other</option>
           </select>
         </div>
         <div class="input-field">
           <i class="fas fa-calendar"></i>
-          <input type="text" name="address" placeholder="Address" pattern="^(?!\s*$).+" onclick="validate()" title="Please fill your address" value="<%=address %>" required />
+          <input type="text" name="address" placeholder="Address" pattern="^(?!\s*$).+" onclick="validate()" title="Please fill your address" value="<%=messages.address %>" required />
         </div>
 
         <input type="submit" class="btn signUpBtn" value="Sign up" />

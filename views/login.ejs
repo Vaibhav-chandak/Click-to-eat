@@ -13,12 +13,11 @@
     <div class="signin-signup">
       <!-- Sign in form -->
       <form action="login" method="POST" class="sign-in-form">
-        <% if(errors.length> 0) {%> <% errors.forEach(error=> { %>
-        <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
-          <%= error.text %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>  
-        <% }) %> <% } %>
+        <% if(messages.error) { %>
+        <div class="error-div">
+          <span class="error"><%=messages.error%></span>
+        </div>
+        <% } %>
         <h2 class="title">Sign in</h2>
         <div class="input-field">
           <i class="fas fa-envelope"></i>
