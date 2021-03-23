@@ -1,0 +1,89 @@
+<%- include("partials/header") %> <%- include("partials/navbar") %>
+
+<form class="user-profile">
+  <div class="user-details">
+    <button  class="btn btn-outline-primary btn-lg btn-block edit-btn-1">Edit your profile</button>
+    <h2 class="section-heading" style="width: 250px">User Profile</h2>
+    <div class="form-group">
+      <label class="profile-label">Your Name:</label>
+      <div class="relative">
+        <input class="form-control details-input" value="<%=user.name%>" type="text" disabled />
+        <i class="fa fa-user input-icon"></i>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="profile-label">Email Address:</label>
+      <div class="relative">
+        <input class="form-control details-input" value="<%=user.email%>" disabled />
+        <i class="fa fa-envelope input-icon"></i>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="profile-label">Gender:</label>
+      <div class="relative">
+        <input class="form-control details-input" value="<%=user.gender%>" type="text" disabled />
+        <i class="fas fa-venus-mars input-icon"></i>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="profile-label">Contact Number:</label>
+      <div class="relative">
+        <input class="form-control details-input" value="<%=user.phoneNumber%>" disabled />
+        <i class="fa fa-phone input-icon"></i>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="profile-label">Address:</label>
+      <div class="relative">
+        <input class="form-control details-input" value="<%=user.address%>" disabled />
+        <i class="fa fas fa-map-marker-alt input-icon"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="heading-div">
+    <h2 class="section-heading" style="width: 270px">Purchase History</h2>
+  </div>
+  <% if(orders.length > 0) { %>
+  <table class="table table-bordered table-hover table-responsive">
+    <caption style="caption-side: bottom; text-align: right">
+      <a style="color: black" class="table-caption" href="/orders">See full purchase history</a>
+    </caption>
+    <thead>
+      <tr>
+        <th style="width: 20%; text-align: center" scope="col">Order ID</th>
+        <th style="width: 10%; text-align: center" scope="col">Total Quantity</th>
+        <th style="width: 10%; text-align: center" scope="col">Status</th>
+        <th style="width: 15%; text-align: center" scope="col">Order Time</th>
+        <th style="width: 10%; text-align: center" scope="col">Total Amount</th>
+        <th style="width: 35%; text-align: center" scope="col">Delivery Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(var i = 0; i<(orders.length < 4 ? orders.length : 4); i++) { %>
+      <tr class="purchase-history-row" onclick="window.open('/orders', '_self')">
+        <td><%=orders[i]._id%></td>
+        <td><%=orders[i].totalQty%></td>
+        <td><%=orders[i].status%></td>
+        <td><%=moment(orders[i].createdAt).format("MMM DD YYYY, h:mm A")%></td>
+        <td>₹ <%=orders[i].totalPrice%></td>
+        <td><%=orders[i].address%></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+  <% } else { %>
+  <div class="no-order">
+    <h6>No orders placed yet, click the button and order your favourite dishes</h6>
+    <a href="/menu" class="btn btn-success">Go to menu</a>
+    <h6></h6>
+  </div>
+  <% } %>
+</form>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+
+<%- include("partials/contact-partial") %> <%- include("partials/footer") %>

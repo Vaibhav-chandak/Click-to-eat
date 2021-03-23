@@ -14,11 +14,12 @@
     <div class="signin-signup">
       <!-- Sign up form -->
       <form action="/register" method="POST" class="sign-up-form" onsubmit="return validate">
-        <% if(messages.error) { %> 
-        <div class="error-div">
-          <span class="error"><%=messages.error%></span>
-        </div>
-        <% } %> 
+        <% if(messages.error) {%>
+          <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
+            <%= messages.error %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } %>
         <h2 class="title">Sign up</h2>
         <div class="input-field">
           <i class="fas fa-user"></i>
@@ -36,11 +37,6 @@
           <i class="fas fa-phone-alt"></i>
           <input type="text" pattern="[1-9]{1}[0-9]{9}" name="phone" placeholder="Phone Number" title="Enter phone number without country code or 0" value="<%=messages.phone%>" required />
         </div>
-        <!-- <div class="input-field">
-                <i class="fas fa-calendar"></i>
-                <input type="date" min="1905-01-01" max="2002-12-31" name="birthday" placeholder="ENter DOB"
-                    required />
-            </div> -->
         <div class="input-field">
           <i class="fas fa-venus-mars"></i>
           <select name="gender" id="" required>

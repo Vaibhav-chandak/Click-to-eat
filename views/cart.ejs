@@ -37,7 +37,20 @@
       Total Amount:
       <span class="total-price">₹<%=session.cart.totalPrice%></span>
     </h3>
-    <button type="submit" class="btn checkout-btn">Checkout</button>
+    <% if(messages.error) {%>
+    <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
+      <%= messages.error %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %> <% if(user) {%>
+    <form action="/checkout" method="POST">
+      <button type="submit" class="btn checkout-btn">Checkout</button>
+    </form>
+    <% } else { %>
+    <form action="/login">
+      <button type="submit" class="btn checkout-btn">Login to checkout</button>
+    </form>
+    <% } %>
   </div>
 </div>
 <% } else {%>
@@ -50,6 +63,6 @@
   <div class="empty-cart-image-div">
     <img class="empty-cart-image" src="images/empty-cart.png" alt="Empty Cart" />
   </div>
-  <a href="/home" class="btn btn-primary">Go Back</a>
+  <a href="/menu" class="btn btn-primary">Go Back</a>
 </div>
 <%}%> <%- include ("partials/contact-partial") %> <%- include ("partials/footer") %>

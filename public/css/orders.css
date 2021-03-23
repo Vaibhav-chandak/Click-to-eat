@@ -1,0 +1,48 @@
+.heading {
+    border-bottom: 2px solid orange;
+    padding-bottom: 1%;
+    width: 20%;
+    margin-bottom: 5%;
+}
+
+.main {
+    border-radius: 0.5rem;
+    border: 1px solid gainsboro;
+    margin-bottom: 5%;
+}
+
+.top {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom: 1px solid gainsboro;
+    background-color: #f4f4f4;
+    padding: 2%;
+    display: flex;
+    position: relative;
+}
+
+.sm-heading {
+    font-size: small;
+}
+
+.order-price {
+    margin: auto 5%;
+}
+
+.order-id {
+    position: absolute;
+    right: 5%;
+}
+
+.desc {
+    padding: 2%;
+}
+
+.address {
+    margin-bottom: 0;
+}
+
+.table {
+    border-left: hidden;
+    margin: 0;
+}

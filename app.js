@@ -60,14 +60,16 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+const tempSchema = new mongoose.Schema({
+    image: String,
+});
+const Temp = mongoose.model("Temp", tempSchema);
+
+
 // Upload product temporary
 app.post("/uploadPhoto", upload.single("image"), (req, res) => {
-    const product = new Product({
-        image: req.file.path,
-        title: req.body.title,
-        price: req.body.price,
-        description: req.body.desc,
-        category: req.body.category
+    const product = new Temp({
+        image: req.file.path
     });
     product.save((err, result) => {
         if (!err) {

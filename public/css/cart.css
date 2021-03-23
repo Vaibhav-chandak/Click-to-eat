@@ -93,3 +93,9 @@ hr {
     width: 40%;
     margin-bottom: 5%;
 }
+
+.errors-div {
+    margin-top: 2%;
+    margin-left: auto;
+    width: max-content;
+}

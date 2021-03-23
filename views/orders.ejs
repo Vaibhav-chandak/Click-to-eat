@@ -1,0 +1,65 @@
+<%- include("partials/header") %> <%- include("partials/navbar") %>
+<script>
+  function returnArray(order) {
+    return Object.values(Object.values(order.items));
+  }
+</script>
+
+<div class="container">
+  <h3 class="heading">Your Orders</h3>
+  <% for (let i = 0; i < orders.length; i++) { %>
+  <div class="main">
+    <div class="top">
+      <div>
+        <span class="sm-heading">ORDER PLACED</span> <br />
+        <span><%=moment(orders[i].createdAt).format("MMM DD YYYY, h:mm A")%></span>
+      </div>
+      <div class="order-price">
+        <span class="sm-heading">TOTAL</span> <br />
+        <span>₹<%=orders[i].totalPrice%></span>
+      </div>
+      <div class="order-id">
+        <span class="sm-heading">ORDER ID</span> <br />
+        <span><%=orders[i]._id%></span>
+      </div>
+      <div>
+        <span class="sm-heading">Payment Type</span> <br />
+        <span><%=orders[i].paymentType%></span>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="desc">
+        <h5><%=orders[i].status%></h5>
+        <p class="address">Address: <%=orders[i].address%></p>
+        <p>Paid on: <%=moment(orders[i].createdAt).format("DD MMMM YYYY")%></p>
+      </div>
+      <table class="table table-bordered">
+        <!-- This is how we can access each item in the orders =
+          Object.values(Object.values(orders[0].items)[0])[0] -->
+        <thead>
+          <th style="width: 10%; text-align: center">Image</th>
+          <th style="width: 10%; text-align: center">Dish Name</th>
+          <th style="width: 30%; text-align: center">Description</th>
+          <th style="width: 5%; text-align: center">Price</th>
+          <th style="width: 10%; text-align: center">Category</th>
+          <th style="width: 5%; text-align: center">Quantity</th>
+          <th style="width: 10%; text-align: center">Total Price</th>
+        </thead>
+        <% for (let j = 0; j < Object.values(orders[i].items).length; j++) { %>
+        <tr>
+          <td><img class="w-100" src="<%=Object.values(Object.values(orders[i].items)[j])[0].image%>" alt="Dish Image" /></td>
+          <td><%= Object.values(Object.values(orders[i].items)[j])[0].title%></td>
+          <td><%= Object.values(Object.values(orders[i].items)[j])[0].description%></td>
+          <td>₹<%= Object.values(Object.values(orders[i].items)[j])[0].price%></td>
+          <td><%= Object.values(Object.values(orders[i].items)[j])[0].category%></td>
+          <td><%= Object.values(orders[i].items)[j].qty%></td>
+          <!-- Total Price of that item = qty * price -->
+          <td>₹<%= Object.values(orders[i].items)[j].qty * Object.values(Object.values(orders[i].items)[j])[0].price%></td>
+        </tr>
+        <% } %>
+      </table>
+    </div>
+  </div>
+  <% } %>
+</div>
+<%- include("partials/contact-partial") %> <%- include("partials/footer") %>
