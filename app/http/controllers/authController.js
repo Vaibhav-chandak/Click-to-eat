@@ -1,15 +1,12 @@
 const User = require("../../models/User");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+const _ = require("lodash");
 
 function authController() {
     return {
         // Render Login Page
         login(req, res) {
-            // If user is already logged in do not let user access login page
-            if (req.isAuthenticated()) {
-                return res.redirect("/home");
-            }
             res.render("login", {
                 title: "Login Page",
                 style: "login",
@@ -47,10 +44,6 @@ function authController() {
 
         // Render register page
         register(req, res) {
-            // If user is already logged in do not let user access register page
-            if (req.isAuthenticated()) {
-                return res.redirect("/home");
-            }
             res.render("register", {
                 title: "Register Page",
                 style: "login",
@@ -95,11 +88,11 @@ function authController() {
 
             // If everything is fine create user
             const user = new User({
-                name,
-                email,
+                name: _.capitalize(name),
+                email: _.capitalize(email),
                 password: hashedPassword,
                 phoneNumber: phone,
-                gender,
+                gender: _.capitalize(gender),
                 address
             });
             user.save().then(() => {

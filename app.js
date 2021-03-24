@@ -24,7 +24,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: url }),
-    cookie: { maxAge: 24 * 60 * 60 * 1000, secure: false } //24 hours
+    cookie: { maxAge: 24 * 60 * 60 * 1000 } //24 hours
 }));
 
 // Passport config
@@ -36,7 +36,8 @@ app.use(passport.session());
 mongoose.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
 });
 
 // Global Middleware

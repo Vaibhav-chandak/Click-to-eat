@@ -119,12 +119,12 @@ a:link, a:visited, a:active {
     transform: scaleX(1)
 }
 
-.edit-btn-1 {
+.edit-btn, .save-btn {
     float: right;
     transform: scale(0.8);
 }
 
-.edit-btn-1:focus {
+.edit-btn:focus, .save-btn:focus {
     outline: none;
     border: none;
 }

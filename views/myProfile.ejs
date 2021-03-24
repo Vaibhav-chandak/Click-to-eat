@@ -1,41 +1,48 @@
 <%- include("partials/header") %> <%- include("partials/navbar") %>
 
-<form class="user-profile">
+<form class="user-profile" action="/editProfile" method="POST">
   <div class="user-details">
-    <button  class="btn btn-outline-primary btn-lg btn-block edit-btn-1">Edit your profile</button>
+    <button type="button" class="btn btn-outline-primary btn-lg btn-block edit-btn">Edit your profile</button>
+    <button type="button" class="btn btn-outline-primary btn-lg btn-block save-btn">Save changes</button>
     <h2 class="section-heading" style="width: 250px">User Profile</h2>
+    <% if(messages.error) {%>
+    <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
+      <%= messages.error %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
     <div class="form-group">
       <label class="profile-label">Your Name:</label>
       <div class="relative">
-        <input class="form-control details-input" value="<%=user.name%>" type="text" disabled />
+        <input class="form-control details-input" value="<%=user.name%>" type="text" name="name" disabled />
         <i class="fa fa-user input-icon"></i>
       </div>
     </div>
     <div class="form-group">
       <label class="profile-label">Email Address:</label>
       <div class="relative">
-        <input class="form-control details-input" value="<%=user.email%>" disabled />
+        <input class="form-control details-input" value="<%=user.email%>" name="email" disabled />
         <i class="fa fa-envelope input-icon"></i>
       </div>
     </div>
     <div class="form-group">
       <label class="profile-label">Gender:</label>
       <div class="relative">
-        <input class="form-control details-input" value="<%=user.gender%>" type="text" disabled />
+        <input class="form-control details-input" value="<%=user.gender%>" name="gender" type="text" disabled />
         <i class="fas fa-venus-mars input-icon"></i>
       </div>
     </div>
     <div class="form-group">
       <label class="profile-label">Contact Number:</label>
       <div class="relative">
-        <input class="form-control details-input" value="<%=user.phoneNumber%>" disabled />
+        <input class="form-control details-input" value="<%=user.phoneNumber%>" name="phoneNumber" disabled />
         <i class="fa fa-phone input-icon"></i>
       </div>
     </div>
     <div class="form-group">
       <label class="profile-label">Address:</label>
       <div class="relative">
-        <input class="form-control details-input" value="<%=user.address%>" disabled />
+        <input name="address" class="form-control details-input" value="<%=user.address%>" disabled />
         <i class="fa fas fa-map-marker-alt input-icon"></i>
       </div>
     </div>
@@ -76,14 +83,27 @@
   <div class="no-order">
     <h6>No orders placed yet, click the button and order your favourite dishes</h6>
     <a href="/menu" class="btn btn-success">Go to menu</a>
-    <h6></h6>
   </div>
   <% } %>
 </form>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+  $(".save-btn").hide();
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+  $(".edit-btn").click(function () {
+    $(".edit-btn").hide();
+    $(".details-input").removeAttr("disabled");
+    $(".save-btn").show();
+  });
 
+  $(".save-btn").click(function () {
+    $(".user-profile").submit();
+    $(".save-btn").hide();
+    $(".details-input").attr("disabled", "disabled");
+    $(".edit-btn").show();
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 <%- include("partials/contact-partial") %> <%- include("partials/footer") %>

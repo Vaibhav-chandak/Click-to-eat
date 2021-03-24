@@ -7,8 +7,6 @@ const userSchema = new mongoose.Schema({
     phoneNumber: { type: String, required: true },
     gender: { type: String, required: true },
     address: { type: String, required: true },
-    profilePicture: { type: String, default: "uploads\\2021-03-21T10-19-07.396Z-profile-pic.png" },
-    coverPicture: { type: String, default: "uploads\\2021-03-21T10-19-36.105Z-cover-pic.jpg" },
     role: { type: String, default: "Customer" }
 }, { timestamps: true });
 

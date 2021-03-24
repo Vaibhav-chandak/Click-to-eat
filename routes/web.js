@@ -1,3 +1,5 @@
+const auth = require("../app/http/middleware/checkAuthentication");
+const guest = require("../app/http/middleware/guest");
 const homeController = require("../app/http/controllers/homeController");
 const authController = require("../app/http/controllers/authController")
 const cartController = require("../app/http/controllers/customers/cartController");
@@ -8,20 +10,21 @@ const profileController = require("../app/http/controllers/customers/profileCont
 function initRoutes(app) {
     app.get("/", homeController().index);
     app.get("/home", homeController().homeIndex);
-    app.get("/login", authController().login);
-    app.get("/register", authController().register);
-    app.get("/myProfile", profileController().index);
-    app.get("/orders", orderController().index);
+    app.get("/login", guest, authController().login);
+    app.get("/register", guest, authController().register);
+    app.get("/myProfile", auth, profileController().index);
+    app.get("/orders", auth, orderController().index);
     app.get("/menu", menuController().index);
     app.get("/cart", cartController().index);
-    app.get("/logout", authController().logout);
+    app.get("/logout", auth, authController().logout);
 
-    app.post("/register", authController().postRegister);
-    app.post("/login", authController().postLogin);
+    app.post("/editProfile", auth, profileController().editProfile);
+    app.post("/register", guest, authController().postRegister);
+    app.post("/login", guest, authController().postLogin);
     app.post("/updateCart", cartController().updateCart);
     app.post("/removeOne", cartController().removeOne);
     app.post("/removeAll", cartController().removeAll);
-    app.post("/checkout", orderController().store);
+    app.post("/checkout", auth, orderController().store);
 }
 
 module.exports = initRoutes;
