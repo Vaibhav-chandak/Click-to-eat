@@ -11,7 +11,7 @@ const express = require("express"),
 
 const app = express();
 
-const url = 'mongodb://localhost:27017/ofdsDB';
+const url = 'mongodb+srv://Admin-Vaibhav:Vaibhav@121@major-project.psesh.mongodb.net/ofdsDB?retryWrites=true&w=majority';
 
 app.set('view engine', 'ejs');
 app.use(express.json());
