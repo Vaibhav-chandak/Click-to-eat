@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
+.contact-heading {
+    text-align: center;
+    font-family: 'Berkshire Swash', cursive;
+    background: url("../images/contact-us-background.jpg");
+    background-size: cover;
+    color: white;
+    padding-top: 15%;
+    height: 70vh;
+}
+
+.contact-heading h1 {
+    width: 60%;
+    font-size: 3rem;
+}
+
+.container {
+    box-shadow: 0 0 7px 0 rgba(0, 0, 0, 1);
+    margin: 5% auto;
+    padding: 5%;
+    border-radius: 2rem;
+}
+
+.contact {
+    text-align: left;
+    display: inline-block;
+    color: black;
+    font-size: 20px;
+    padding-left: 5%;
+}
+
+.location-img {
+    height: 1.5rem;
+}
+
+.info {
+    display: flex;
+    width: 90%;
+}
+
+.rowContact {
+    position: relative;
+}
+
+.rowContact span {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.basic-slide {
+    width: 100%;
+    padding: 10px 0 10px 15px;
+    font-weight: 400;
+    color: #000;
+    background: #ffc93c;
+    border: 0;
+    border-radius: 3px;
+    outline: 0;
+    text-indent: 80px;
+    line-height: 35px;
+    transition: all .3s ease-in-out;
+}
+
+.basic-slide::-webkit-input-placeholder {
+    color: #ffc93c;
+    text-indent: 0;
+    font-weight: 300
+}
+
+.basic-slide+label {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    padding: 15px;
+    text-shadow: 0 1px 0 rgba(19, 74, 70, .4);
+    background: #e48900;
+    transition: all .3s ease-in-out;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.basic-slide:active, .basic-slide:focus {
+    color: #000;
+    text-indent: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0
+}
+
+.basic-slide:active::-webkit-input-placeholder, .basic-slide:focus::-webkit-input-placeholder {
+    color: #000
+}
+
+.basic-slide:active+label, .basic-slide:focus+label {
+    transform: translateX(-100%)
+}
+
+@keyframes swing {
+    0% {
+        transform: rotate(0)
+    }
+    20% {
+        transform: rotate(116deg)
+    }
+    40% {
+        transform: rotate(60deg)
+    }
+    60% {
+        transform: rotate(98deg)
+    }
+    80% {
+        transform: rotate(76deg)
+    }
+    100% {
+        transform: rotate(82deg)
+    }
+}
+
+@keyframes swing-back {
+    0% {
+        transform: rotate(82deg)
+    }
+    100% {
+        transform: rotate(0)
+    }
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn-warning {
+    background-color: #F28123;
+    letter-spacing: 1.2px;
+}
+
+.btn:focus {
+    background-color: #F28123;
+    outline: none;
+    box-shadow: none;
+}

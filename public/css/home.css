@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
+.success-div {
+    width: 50%;
+    margin: auto;
+    margin-bottom: 2%;
+}
+
 .intro-div {
     height: 100vh;
     background-image: url("../images/home_background.jpg");

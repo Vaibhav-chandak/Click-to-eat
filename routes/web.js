@@ -3,6 +3,7 @@ const guest = require("../app/http/middleware/guest");
 const homeController = require("../app/http/controllers/homeController");
 const authController = require("../app/http/controllers/authController")
 const cartController = require("../app/http/controllers/customers/cartController");
+const contactUsController = require("../app/http/controllers/customers/contactUsController");
 const menuController = require("../app/http/controllers/customers/menuController");
 const orderController = require("../app/http/controllers/customers/orderController");
 const profileController = require("../app/http/controllers/customers/profileController");
@@ -16,11 +17,13 @@ function initRoutes(app) {
     app.get("/orders", auth, orderController().index);
     app.get("/menu", menuController().index);
     app.get("/cart", cartController().index);
+    app.get("/contact", contactUsController().index);
     app.get("/logout", auth, authController().logout);
 
     app.post("/editProfile", auth, profileController().editProfile);
     app.post("/register", guest, authController().postRegister);
     app.post("/login", guest, authController().postLogin);
+    app.post("/contact", contactUsController().postQuery);
     app.post("/updateCart", cartController().updateCart);
     app.post("/removeOne", cartController().removeOne);
     app.post("/removeAll", cartController().removeAll);

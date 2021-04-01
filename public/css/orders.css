@@ -46,3 +46,26 @@
     border-left: hidden;
     margin: 0;
 }
+
+.empty-cart {
+    text-align: center;
+    padding: 5%;
+    letter-spacing: 1px;
+}
+
+.empty-text {
+    color: gray;
+    margin: 2%;
+    letter-spacing: 1px;
+}
+
+.empty-cart-image {
+    width: 40%;
+    margin-bottom: 5%;
+}
+
+.success-div {
+    width: 60%;
+    margin: auto;
+    margin-bottom: 2%;
+}

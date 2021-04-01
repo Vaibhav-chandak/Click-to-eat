@@ -119,7 +119,7 @@ a:link, a:visited, a:active {
     transform: scaleX(1)
 }
 
-.edit-btn, .save-btn {
+.edit-btn, .save-btn, .logout-btn {
     float: right;
     transform: scale(0.8);
 }

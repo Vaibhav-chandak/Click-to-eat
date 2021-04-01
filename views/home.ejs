@@ -1,4 +1,11 @@
 <%- include ("partials/header") %> <%- include ("partials/navbar") %>
+<div></div>
+<% if(messages.success) {%>
+<div class="alert alert-success alert-dismissible fade show success-div" role="alert">
+  <%= messages.success %>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% } %>
 
 <div class="intro-div">
   <div class="intro-details">

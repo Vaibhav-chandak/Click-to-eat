@@ -1,0 +1,57 @@
+<%- include("partials/header") %> <%- include("partials/navbar") %>
+<div class="contact-heading">
+  <h1>We would love to hear from you.</h1>
+</div>
+
+<div class="container">
+  <% if(messages.error) {%>
+  <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
+    <%= messages.error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% } %>
+  <div class="row">
+    <div class="col col-lg-6">
+      <div class="info">
+        <i class="fas fa-map-marker-alt fa-2x" class="contactIcon"></i>
+        <p class="contact">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+        <br />
+      </div>
+
+      <br />
+      <i class="fas fa-phone-volume fa-2x" class="contactIcon"></i>
+      <p class="contact">+91 8890901831</p>
+      <br />
+
+      <br />
+      <i class="fas fa-envelope-open fa-2x" class="contactIcon"></i>
+      <p class="contact">Vaibhavchandak@hotmail.com</p>
+      <br />
+    </div>
+
+    <div class="col col-lg-6">
+      <form action="/contact" method="POST">
+        <div class="row rowContact">
+          <span>
+            <input value="<%=messages.subject%>" class="basic-slide" name="subject" type="text" placeholder="Please enter subject!" autocomplete="off" />
+            <label for="name">Subject</label>
+          </span>
+
+          <span>
+            <textarea value="<%=messages.message%>" class="basic-slide" name="message" placeholder="Enter your query or message!" rows="6" cols="10"></textarea>
+            <label for="message">Message</label>
+          </span>
+        </div>
+        <div class="buttons">
+          <% if(user) {%>
+          <button class="btn btn-warning" type="submit">Submit</button>
+          <% } else { %>
+          <a href="/login" class="btn btn-warning">Login to submit</a>
+          <% } %>
+          <button class="btn btn-warning" type="reset">Reset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include("partials/footer") %>

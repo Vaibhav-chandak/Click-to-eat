@@ -96,7 +96,10 @@ function authController() {
                 address
             });
             user.save().then(() => {
-                return res.redirect("/home");
+                req.login(user, (err) => {
+                    if (err) { return next(err); }
+                    return res.redirect("/home");
+                });
             }).catch(err => {
                 req.flash("error", "Something went wrong!");
                 return res.redirect("/register");
