@@ -7,6 +7,9 @@ const contactUsController = require("../app/http/controllers/customers/contactUs
 const menuController = require("../app/http/controllers/customers/menuController");
 const orderController = require("../app/http/controllers/customers/orderController");
 const profileController = require("../app/http/controllers/customers/profileController");
+const adminOrderController = require("../app/http/controllers/admin/adminOrderController");
+const multer = require("../app/http/middleware/multer");
+
 
 function initRoutes(app) {
     app.get("/", homeController().index);
@@ -19,6 +22,10 @@ function initRoutes(app) {
     app.get("/cart", cartController().index);
     app.get("/contact", contactUsController().index);
     app.get("/logout", auth, authController().logout);
+    app.get("/addItem", adminOrderController().addItem);
+    app.get("/temp", (req, res) => {
+        res.render("temp");
+    });
 
     app.post("/editProfile", auth, profileController().editProfile);
     app.post("/register", guest, authController().postRegister);
@@ -28,6 +35,7 @@ function initRoutes(app) {
     app.post("/removeOne", cartController().removeOne);
     app.post("/removeAll", cartController().removeAll);
     app.post("/checkout", auth, orderController().store);
+    app.post("/addItem", multer.single("image"), adminOrderController().postAddItem);
 }
 
 module.exports = initRoutes;

@@ -5,7 +5,7 @@
 
 <div class="container">
   <% if(messages.error) {%>
-  <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
+  <div id="error" class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
     <%= messages.error %>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
@@ -54,4 +54,8 @@
     </div>
   </div>
 </div>
+<script>
+  var elmnt = document.getElementById("error");
+  elmnt.scrollIntoView({ behavior: "smooth" });
+</script>
 <%- include("partials/footer") %>
