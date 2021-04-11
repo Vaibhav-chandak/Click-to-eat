@@ -3,9 +3,9 @@ const Query = require("../../../models/Query");
 function contactUsController() {
     return {
         index(req, res) {
-            res.render("contactUs", {
+            res.render("customer/contactUs", {
                 title: "Contact Us",
-                style: "contactUs"
+                style: "customer/contactUs"
             });
         },
 

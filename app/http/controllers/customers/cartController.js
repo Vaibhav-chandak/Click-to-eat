@@ -1,9 +1,9 @@
 function cartController() {
     return {
         index(req, res) {
-            res.render("cart", {
+            res.render("customer/cart", {
                 title: "Cart Page",
-                style: "cart"
+                style: "customer/cart"
             });
         },
 

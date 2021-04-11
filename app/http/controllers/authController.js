@@ -7,9 +7,9 @@ function authController() {
     return {
         // Render Login Page
         login(req, res) {
-            res.render("login", {
+            res.render("customer/login", {
                 title: "Login Page",
-                style: "login",
+                style: "customer/login",
                 errors: []
             });
         },
@@ -44,9 +44,9 @@ function authController() {
 
         // Render register page
         register(req, res) {
-            res.render("register", {
+            res.render("customer/register", {
                 title: "Register Page",
-                style: "login",
+                style: "customer/login",
                 errors: [],
                 name: "",
                 email: "",

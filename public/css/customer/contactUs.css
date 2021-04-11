@@ -6,7 +6,7 @@ html {
 .contact-heading {
     text-align: center;
     font-family: 'Berkshire Swash', cursive;
-    background: url("../images/contact-us-background.jpg");
+    background: url("../../images/contact-us-background.jpg");
     background-size: cover;
     color: white;
     padding-top: 15%;

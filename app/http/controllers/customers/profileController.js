@@ -7,9 +7,9 @@ function profileController() {
     return {
         async index(req, res) {
             const orders = await Order.find({ customerId: req.user._id }, null, { sort: { "createdAt": -1 } });
-            res.render("myProfile", {
+            res.render("customer/myProfile", {
                 title: "My Profile",
-                style: "myProfile",
+                style: "customer/myProfile",
                 user: req.user,
                 orders: orders,
                 moment: moment

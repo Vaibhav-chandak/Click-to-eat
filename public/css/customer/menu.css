@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
 * {
     scroll-behavior: smooth;
-    scroll-margin: 100px;
 }
 
 .menu-intro {
-    background-image: url("/images/menu-background.jpg");
+    background-image: url("../../images/menu-background.jpg");
     background-size: cover;
     height: 80vh;
     text-align: center;

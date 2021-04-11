@@ -29,9 +29,9 @@ function homeController() {
                     generateUniqueRandom(results.length);
                     generateUniqueRandom(results.length);
                     generateUniqueRandom(results.length);
-                    res.render("home", {
+                    res.render("customer/home", {
                         title: "Home Page",
-                        style: "home",
+                        style: "customer/home",
                         randomIndex: randomIndex,
                         photos: results
                     });

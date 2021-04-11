@@ -5,9 +5,9 @@ function menuController() {
         index(req, res) {
             Product.find({}).sort({ "category": "asc" }).exec((err, result) => {
                 if (!err) {
-                    res.render("menu", {
+                    res.render("customer/menu", {
                         title: "Menu Page",
-                        style: "menu",
+                        style: "customer/menu",
                         items: result
                     });
                 }

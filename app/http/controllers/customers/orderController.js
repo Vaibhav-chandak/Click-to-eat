@@ -5,9 +5,9 @@ function orderController() {
     return {
         async index(req, res) {
             const orders = await Order.find({ customerId: req.user._id }, null, { sort: { "createdAt": -1 } });
-            res.render("orders", {
+            res.render("customer/orders", {
                 title: "All orders",
-                style: "orders",
+                style: "customer/orders",
                 orders: orders,
                 moment: moment
             });

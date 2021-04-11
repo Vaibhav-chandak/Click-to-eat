@@ -1,4 +1,4 @@
-<%- include ("partials/header") %> <%- include ("partials/navbar") %>
+<%- include ("../partials/header") %> <%- include ("../partials/navbar") %>
 <!-- If cart exists than display cart else display a message that cart is empty -->
 <% if(session.cart) {%>
 <div class="container-fluid main">
@@ -65,4 +65,4 @@
   </div>
   <a href="/menu" class="btn btn-primary">Go Back</a>
 </div>
-<%}%> <%- include ("partials/contact-partial") %> <%- include ("partials/footer") %>
+<%}%> <%- include ("../partials/contact-partial") %> <%- include ("../partials/footer") %>
