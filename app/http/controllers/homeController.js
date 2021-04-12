@@ -7,6 +7,12 @@ function homeController() {
         },
 
         homeIndex(req, res) {
+            // If user is admin redirect to first page of admin interface
+            if (req.user.role === "Admin") {
+                return res.redirect("/admin/orders");
+            }
+
+            // If user is customer
             let randomIndex = [];
             // This function generates and stores a unique random number whenever called
             function generateUniqueRandom(maxNr) {

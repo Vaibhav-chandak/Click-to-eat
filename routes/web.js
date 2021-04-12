@@ -1,5 +1,3 @@
-const auth = require("../app/http/middleware/checkAuthentication");
-const guest = require("../app/http/middleware/guest");
 const homeController = require("../app/http/controllers/homeController");
 const authController = require("../app/http/controllers/authController")
 const cartController = require("../app/http/controllers/customers/cartController");
@@ -10,11 +8,18 @@ const profileController = require("../app/http/controllers/customers/profileCont
 const adminOrderController = require("../app/http/controllers/admin/adminOrderController");
 const multer = require("../app/http/middleware/multer");
 
+// Middlewares
+const auth = require("../app/http/middleware/checkAuthentication");
+const guest = require("../app/http/middleware/guest");
+const adminAuth = require("../app/http/middleware/adminAuthentication");
 
 function initRoutes(app) {
+    // Common routes
     app.get("/", homeController().index);
     app.get("/home", homeController().homeIndex);
     app.get("/login", guest, authController().login);
+
+    // Customer Routes
     app.get("/register", guest, authController().register);
     app.get("/myProfile", auth, profileController().index);
     app.get("/orders", auth, orderController().index);
@@ -22,10 +27,6 @@ function initRoutes(app) {
     app.get("/cart", cartController().index);
     app.get("/contact", contactUsController().index);
     app.get("/logout", auth, authController().logout);
-    app.get("/addItem", adminOrderController().addItem);
-    app.get("/temp", (req, res) => {
-        res.render("temp");
-    });
 
     app.post("/editProfile", auth, profileController().editProfile);
     app.post("/register", guest, authController().postRegister);
@@ -36,6 +37,12 @@ function initRoutes(app) {
     app.post("/removeAll", cartController().removeAll);
     app.post("/checkout", auth, orderController().store);
     app.post("/addItem", multer.single("image"), adminOrderController().postAddItem);
+
+    // Admin Routes
+    app.get("/admin/orders", adminAuth, adminOrderController().index);
+    app.get("/admin/allOrders", adminAuth, adminOrderController().allOrders);
+
+    app.post("/admin/order/status", adminAuth, adminOrderController().changeStatus);
 }
 
 module.exports = initRoutes;

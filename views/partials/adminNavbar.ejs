@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="/css/admin/navbar.css" />
+
+<section class="navbar">
+  <div class="blend">
+    <div class="logo-div">
+      <img class="logo" src="../images/icon1.png" alt="" />
+    </div>
+    <div class="nav-options">
+      <ul>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Orders</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="/admin/orders">Current Orders</a></li>
+            <li><a class="dropdown-item" href="/admin/allOrders">All Orders</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Menu</a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="/addDish">Add dish</a></li>
+            <li><a class="dropdown-item" href="/viewDishes">View dishes</a></li>
+            <li><a class="dropdown-item" href="/modifyDish">Update or remove dish</a></li>
+          </ul>
+        </li>
+        <li><a href="/complaints">Complaints</a></li>
+        <% if(user) { %>
+        <li><a href="/adminProfile">My Profile</a></li>
+        <% } else {%>
+        <li><a href="/login">Login</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</section>

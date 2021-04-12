@@ -1,12 +1,36 @@
 const _ = require("lodash");
-const { rawListeners } = require("../../../models/Product");
-
 const Product = require("../../../models/Product");
+const Order = require("../../../models/Order");
+const moment = require("moment");
 
 function adminOrderController() {
     return {
-        addItem(req, res) {
-            res.send("Hello");
+        index(req, res) {
+            Order.find({ status: { $ne: 'Completed' } }, null, { sort: { 'createdAt': -1 } }).populate('customerId', '-password').exec((err, orders) => {
+                return res.render("admin/orders", {
+                    title: "Current orders",
+                    style: "admin/orders",
+                    orders: orders,
+                    moment: moment
+                });
+            });
+        },
+
+        allOrders(req, res) {
+            Order.find({}, null, { sort: { 'createdAt': -1 } }).populate('customerId', '-password').exec((err, orders) => {
+                return res.render("admin/orders", {
+                    title: "All orders",
+                    style: "admin/orders",
+                    orders: orders,
+                    moment: moment
+                });
+            });
+        },
+
+        changeStatus(req, res) {
+            Order.updateOne({ _id: req.body.orderId }, { status: req.body.status }, (err, data) => {
+                return res.redirect('/admin/orders')
+            })
         },
 
         postAddItem(req, res) {

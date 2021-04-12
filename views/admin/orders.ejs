@@ -1,0 +1,51 @@
+<%- include ("../partials/header") %> <%- include ("../partials/adminNavbar") %>
+<div class="main">
+  <h4>Current orders</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th style="width: 15%" scope="col">Orders</th>
+        <th style="width: 10%" scope="col">Customer</th>
+        <th style="width: 20%" scope="col">Address</th>
+        <th style="width: 10%" scope="col">Phone no.</th>
+        <th style="width: 15%" scope="col">Status</th>
+        <th style="width: 15%" scope="col">Placed at</th>
+        <th style="width: 15%" scope="col">Payment type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(var i=0; i < orders.length; i++) { %>
+      <tr>
+        <td>
+          <div>
+            <p class="order-para"><%= orders[i]._id %></p>
+            <% for(var j=0; j < Object.values(orders[i].items).length; j++) {%>
+            <p class="order-para"><%= Object.values(orders[i].items)[j].item.title %> - <%= Object.values(orders[i].items)[j].qty %> Pcs</p>
+            <% } %>
+          </div>
+        </td>
+        <td><%= orders[i].customerId.name %></td>
+        <td><%= orders[i].customerId.address %></td>
+        <td><%= orders[i].customerId.phoneNumber %></td>
+        <td>
+          <div>
+            <form action="/admin/order/status" method="POST">
+              <input type="hidden" name="orderId" value="<%=orders[i]._id%>" />
+              <select name="status" onchange="this.form.submit()" class="px-4 py-2 rounded">
+                <option value="Order Placed" <%= orders[i].status == 'Order Placed' ? 'selected' : '' %> >Placed</option>
+                <option value="Confirmed" <%= orders[i].status == 'Confirmed' ? 'selected' : '' %> >Confirmed</option>
+                <option value="Prepared" <%= orders[i].status == 'Prepared' ? 'selected' : '' %> >Prepared</option>
+                <option value="Delivered" <%= orders[i].status == 'Delivered' ? 'selected' : '' %> >Delivered</option>
+                <option value="Completed" <%= orders[i].status == 'Completed' ? 'selected' : '' %> >Completed</option>
+              </select>
+            </form>
+          </div>
+        </td>
+        <td><%=moment(orders[i].createdAt).format("MMM DD YYYY, h:mm A")%></td>
+        <td><%= orders[i].paymentType %></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+<%- include ("../partials/footer") %>
