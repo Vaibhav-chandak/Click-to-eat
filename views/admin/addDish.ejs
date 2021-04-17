@@ -1,0 +1,42 @@
+<%- include ("../partials/header") %> <%- include ("../partials/adminNavbar") %>
+<div class="main">
+  <div class="container">
+    <h3 class="heading">Add New Dish</h3>
+    <% if(messages.error) {%>
+    <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
+      <%= messages.error %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } else if(messages.success) {%>
+    <div class="alert alert-success alert-dismissible fade show errors-div" role="alert">
+      <%= messages.success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+    <form action="/admin/addDish" method="POST" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="title" class="form-label">Enter Dish Name</label>
+        <input type="text" value="<%=messages.title%>" name="title" class="form-control" autocomplete="off" />
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Enter Dish Price</label>
+        <input type="text" value="<%=messages.price%>" name="price" class="form-control" autocomplete="off" />
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Enter Dish Category</label>
+        <input type="text" value="<%=messages.category%>" name="category" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Enter Dish Description</label>
+        <input type="text" value="<%=messages.description%>" name="description" class="form-control" autocomplete="off" />
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">Enter Dish Image</label>
+        <input type="file" name="image" class="form-control" accept="image/*" />
+      </div>
+      <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+      <button type="reset" class="btn btn-primary">Reset</button>
+    </form>
+  </div>
+</div>
+<%- include ("../partials/footer") %>

@@ -6,6 +6,7 @@ const menuController = require("../app/http/controllers/customers/menuController
 const orderController = require("../app/http/controllers/customers/orderController");
 const profileController = require("../app/http/controllers/customers/profileController");
 const adminOrderController = require("../app/http/controllers/admin/adminOrderController");
+const adminDishController = require("../app/http/controllers/admin/adminDishController");
 const multer = require("../app/http/middleware/multer");
 
 // Middlewares
@@ -36,13 +37,17 @@ function initRoutes(app) {
     app.post("/removeOne", cartController().removeOne);
     app.post("/removeAll", cartController().removeAll);
     app.post("/checkout", auth, orderController().store);
-    app.post("/addItem", multer.single("image"), adminOrderController().postAddItem);
 
     // Admin Routes
     app.get("/admin/orders", adminAuth, adminOrderController().index);
     app.get("/admin/allOrders", adminAuth, adminOrderController().allOrders);
+    app.get("/admin/addDish", adminAuth, adminDishController().addDish);
+    app.get("/admin/viewDishes", adminAuth, adminDishController().viewDish);
 
     app.post("/admin/order/status", adminAuth, adminOrderController().changeStatus);
+    app.post("/admin/addDish", multer.single("image"), adminDishController().postAddDish);
+    app.post("/admin/updateDish", multer.single("image"), adminDishController().updateDish);
+    app.post("/admin/deleteDish", adminDishController().deleteDish);
 }
 
 module.exports = initRoutes;

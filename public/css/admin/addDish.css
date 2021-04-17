@@ -1,0 +1,32 @@
+body {
+    background-color: deepskyblue;
+}
+
+.main {
+    margin: 5% auto;
+    background: white;
+    width: 80%;
+    padding: 5%;
+    border-radius: 1rem;
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);
+}
+
+.form-control {
+    border: 2px dashed lightblue;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.submit-btn {
+    margin-right: 2%;
+}
+
+.heading {
+    text-align: center;
+    width: max-content;
+    margin: auto;
+    border-bottom: deepskyblue 2px dashed;
+    margin-bottom: 2%;
+}

@@ -7,9 +7,12 @@ function homeController() {
         },
 
         homeIndex(req, res) {
-            // If user is admin redirect to first page of admin interface
-            if (req.user.role === "Admin") {
-                return res.redirect("/admin/orders");
+            // We need to check if there is someone logged in before checking role so that it doesn't give error i.e. 'role not defined' 
+            if (req.isAuthenticated()) {
+                // If user is admin redirect to first page of admin interface
+                if (req.user.role === "Admin") {
+                    return res.redirect("/admin/orders");
+                }
             }
 
             // If user is customer

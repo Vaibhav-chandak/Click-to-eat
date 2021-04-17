@@ -1,6 +1,6 @@
 <%- include ("../partials/header") %> <%- include ("../partials/adminNavbar") %>
 <div class="main">
-  <h4>Current orders</h4>
+  <h4 class="page-title"><%=title%></h4>
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -37,6 +37,7 @@
                 <option value="Prepared" <%= orders[i].status == 'Prepared' ? 'selected' : '' %> >Prepared</option>
                 <option value="Delivered" <%= orders[i].status == 'Delivered' ? 'selected' : '' %> >Delivered</option>
                 <option value="Completed" <%= orders[i].status == 'Completed' ? 'selected' : '' %> >Completed</option>
+                <option value="Cancelled" <%= orders[i].status == 'Cancelled' ? 'selected' : '' %> >Cancelled</option>
               </select>
             </form>
           </div>

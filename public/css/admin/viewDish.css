@@ -1,0 +1,45 @@
+body {
+    position: relative;
+}
+
+.container {
+    margin-top: 5%;
+}
+
+.heading {
+    text-align: center;
+    width: max-content;
+    margin: auto;
+    margin-bottom: 2%;
+    border-bottom: deepskyblue 3px dashed;
+}
+
+.table-heading {
+    background-color: deepskyblue;
+    color: black;
+}
+
+.dish-img {
+    width: 80%;
+}
+
+.icon {
+    margin: auto 6%;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.form-control {
+    border: 2px dashed lightblue;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.submit-btn {
+    margin-right: 2%;
+}

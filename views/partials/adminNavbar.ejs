@@ -17,14 +17,13 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Menu</a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="/addDish">Add dish</a></li>
-            <li><a class="dropdown-item" href="/viewDishes">View dishes</a></li>
-            <li><a class="dropdown-item" href="/modifyDish">Update or remove dish</a></li>
+            <li><a class="dropdown-item" href="/admin/addDish">Add dish</a></li>
+            <li><a class="dropdown-item" href="/admin/viewDishes">View or edit dishes</a></li>
           </ul>
         </li>
-        <li><a href="/complaints">Complaints</a></li>
+        <li><a href="/admin/complaints">Complaints</a></li>
         <% if(user) { %>
-        <li><a href="/adminProfile">My Profile</a></li>
+        <li><a href="/myProfile">My Profile</a></li>
         <% } else {%>
         <li><a href="/login">Login</a></li>
         <% } %>

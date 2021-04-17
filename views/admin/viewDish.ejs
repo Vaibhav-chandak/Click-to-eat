@@ -1,0 +1,100 @@
+<%- include ("../partials/header") %> <%- include ("../partials/adminNavbar") %>
+<div class="container">
+  <h3 class="heading">View or edit dishes</h3>
+  <% if(messages.error) {%>
+  <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
+    <%= messages.error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% } else if(messages.success) {%>
+  <div class="alert alert-success alert-dismissible fade show errors-div" role="alert">
+    <%= messages.success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% } %>
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-heading">
+        <th style="width: 14%" scope="col">Dish Image</th>
+        <th style="width: 10%" scope="col">Dish Name</th>
+        <th style="width: 9%" scope="col">Dish Price</th>
+        <th style="width: 12%" scope="col">Dish Category</th>
+        <th style="width: 40%" scope="col">Dish Description</th>
+        <th style="width: 15%; text-align: center" scope="col">Edit or delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach(product => { %>
+      <tr>
+        <td scope="col" style="text-align: center"><img class="dish-img" src="../../<%=product.image%>" alt="Dish Image" /></td>
+        <td scope="col"><%=product.title%></td>
+        <td scope="col">₹<%=product.price%></td>
+        <td scope="col"><%=product.category%></td>
+        <td scope="col"><%=product.description%></td>
+        <td style="text-align: center">
+          <button type="button" class="btn edit-btn" onclick="clicked('<%=JSON.stringify(product)%>')" data-bs-toggle="modal" data-bs-target="#edit-dish-modal"><i class="far fa-edit icon"></i></button>
+          <form action="/admin/deleteDish" method="POST" style="display: inline">
+            <input type="hidden" name="dishId" value="<%=product._id%>" />
+            <button type="submit" class="btn delete-btn"><i class="fas fa-trash-alt icon"></i></button>
+          </form>
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <!-- Modal -->
+  <div class="modal fade" id="edit-dish-modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update dish details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/admin/updateDish" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id" class="dishId" />
+            <input type="hidden" name="dishImage" class="dishImage" />
+            <div class="mb-3">
+              <label for="title" class="form-label">Enter Dish Name</label>
+              <input type="text" name="title" class="form-control title" autocomplete="off" />
+            </div>
+            <div class="mb-3">
+              <label for="price" class="form-label">Enter Dish Price</label>
+              <input type="text" name="price" class="form-control price" autocomplete="off" />
+            </div>
+            <div class="mb-3">
+              <label for="category" class="form-label">Enter Dish Category</label>
+              <input type="text" name="category" class="form-control category" />
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Enter Dish Description</label>
+              <input type="text" name="description" class="form-control description" autocomplete="off" />
+            </div>
+            <div class="mb-3">
+              <label for="image" class="form-label">Enter Dish Image</label>
+              <input type="file" name="image" class="form-control" accept="image/*" />
+            </div>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  function clicked(product) {
+    const dish = JSON.parse(product.replace("\\", "\/"));
+    $(".dishId").val(dish._id);
+    $(".dishImage").val(dish.image);
+    $(".title").val(dish.title);
+    $(".price").val(dish.price);
+    $(".category").val(dish.category);
+    $(".description").val(dish.description);
+  }
+</script>
+<%- include ("../partials/footer") %>
