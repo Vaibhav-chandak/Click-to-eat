@@ -2,6 +2,7 @@ const homeController = require("../app/http/controllers/homeController");
 const authController = require("../app/http/controllers/authController")
 const cartController = require("../app/http/controllers/customers/cartController");
 const contactUsController = require("../app/http/controllers/customers/contactUsController");
+const aboutUsController = require("../app/http/controllers/customers/aboutUsController");
 const menuController = require("../app/http/controllers/customers/menuController");
 const orderController = require("../app/http/controllers/customers/orderController");
 const profileController = require("../app/http/controllers/customers/profileController");
@@ -27,6 +28,7 @@ function initRoutes(app) {
     app.get("/menu", menuController().index);
     app.get("/cart", cartController().index);
     app.get("/contact", contactUsController().index);
+    app.get("/about", aboutUsController().index);
     app.get("/logout", auth, authController().logout);
 
     app.post("/editProfile", auth, profileController().editProfile);

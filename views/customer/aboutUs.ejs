@@ -1,0 +1,108 @@
+<%- include ("../partials/header") %> <%- include ("../partials/navbar") %>
+
+<div class="aboutus-intro">
+  <h1 class="heading">About Us.</h1>
+  <img style="margin-top: 11%; margin-left: 5.5%; color: white" src="images/about-us/white%20free.png" />
+</div>
+
+<div class="container-fluid">
+  <h1 class="resto">Our Resto.</h1>
+  <p class="para">Serving best steaks and BBQs since 1984.</p>
+  <p class="para">At House of luscious, we build products & solutions that redefine</p>
+  <p class="para1">the food ordering & delivery space in India,</p>
+  <img class="divider" src="images/about-us/divider-free-img-1.png" />
+  <p style="text-align: center; margin-top: 2%">Every bit of your work at House of luscious will help us change the way India eats!</p>
+  <p class="para1">House of luscious has grand plans to be India’s most loved hyper local player.</p>
+  <p class="para">It aims to be the most accessible platform on the network</p>
+  <p class="para1">- hyperlocal, horizontal and across categories.</p>
+</div>
+
+<!---- Photo Slider -------->
+
+<div id="slider">
+  <div class="slides">
+    <img src="images/about-us/food1.png" width="100%" />
+  </div>
+
+  <div class="slides">
+    <img src="images/about-us/food2.jpg" width="100%" />
+  </div>
+
+  <div class="slides">
+    <img src="images/about-us/food3.jpg" width="100%" />
+  </div>
+
+  <div class="slides">
+    <img src="images/about-us/food4.jpg" width="100%" />
+  </div>
+
+  <div class="slides">
+    <img src="images/about-us/food5.jpg" width="100%" />
+  </div>
+
+  <div id="dot"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+</div>
+
+<!-- Restaurant -->
+<div class="container">
+  <div class="row">
+    <div class="col-6 text">
+      <img src="images/about-us/parcelli.png" /><br /><br />
+      <h3>Our Restaurant Is A Collective Of Amazing People Striving To Build Delightful Italian Cuisine.</h3>
+      <hr />
+
+      <p class="rest-para">"People who love to eat are always the best people." To eat is a necessity, but to eat intelligently is an art. We all eat, an it would be a sad waste of opportunity to eat badly." "If you really want to make a friend, go to someone's house and eat with him...the people who give you their food give you their heart.If you talk about food just as much as you eat it, you're in good company.</p>
+      <p>Food is good; we can all agree on that. But what’s better than just uploading sensual photos of delectable food is inscribing fitting captions on them? This, my friend, is the purpose of this listing. We've got famous chefs and stars—Julia Child, Sophia Loren, Virginia Woolf—to thank for some of the greatest food quotes of all time.</p>
+    </div>
+
+    <div class="col-4">
+      <img class="rest-mage" src="images/about-us/resto.jpg" />
+    </div>
+
+    <div class="col-2">
+      <img class="wine" src="images/about-us/restoo.jpg" />
+      <img class="wine2" src="images/about-us/restoo1.jpg" />
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid Amenities">
+  <div class="container">
+    <div class="row">
+      <div class="col-6 head">
+        <h1 class="few-words">A Few Words About Us</h1>
+        <h4 class="serving">Serving Best Bbq And Steaks Since 1984</h4>
+        <img style="margin-bottom: 3%" src="images/about-us/free-img.png" />
+        <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc tortor eu nibh. Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis.</p>
+      </div>
+      <div class="col-6">
+        <img style="margin-left: 10%; width: 80%; border-radius: 10px" src="images/about-us/restaurant.jpg" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var index = 0;
+  var slides = document.querySelectorAll(".slides");
+  var dot = document.querySelectorAll(".dot");
+
+  function changeSlide() {
+    if (index < 0) {
+      index = slides.length - 1;
+    }
+    if (index > slides.length - 1) {
+      index = 0;
+    }
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+      dot[i].classList.remove("active");
+    }
+    slides[index].style.display = "block";
+    dot[index].classList.add("active");
+    index++;
+    setTimeout(changeSlide, 2000);
+  }
+  changeSlide();
+</script>
+<%- include ("../partials/contact-partial") %> <%- include ("../partials/footer") %>

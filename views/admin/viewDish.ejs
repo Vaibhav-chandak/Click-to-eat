@@ -33,17 +33,14 @@
         <td scope="col"><%=product.description%></td>
         <td style="text-align: center">
           <button type="button" class="btn edit-btn" onclick="clicked('<%=JSON.stringify(product)%>')" data-bs-toggle="modal" data-bs-target="#edit-dish-modal"><i class="far fa-edit icon"></i></button>
-          <form action="/admin/deleteDish" method="POST" style="display: inline">
-            <input type="hidden" name="dishId" value="<%=product._id%>" />
-            <button type="submit" class="btn delete-btn"><i class="fas fa-trash-alt icon"></i></button>
-          </form>
+          <button type="button" onclick="deleteDish('<%=JSON.stringify(product)%>')" class="btn delete-btn" data-bs-toggle="modal" data-bs-target="#deleteWarningModal"><i class="fas fa-trash-alt icon"></i></button>
         </td>
       </tr>
       <% }); %>
     </tbody>
   </table>
 
-  <!-- Modal -->
+  <!-- Modal to edit dishes -->
   <div class="modal fade" id="edit-dish-modal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -83,6 +80,30 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal for warning before deleting a dish -->
+  <div class="modal fade" id="deleteWarningModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete dish?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body deleteModalBody">
+          <p class="text-danger">Do you really want to delete dish: <span class="text-dark dishName" style="font-weight: bold"></span></p>
+          <p class="text-danger">This action is irreversible!</p>
+        </div>
+        <div class="modal-footer">
+          <form action="/admin/deleteDish" method="POST" class="deleteDishForm">
+            <input type="hidden" name="dishId" class="dishId" />
+            <input type="hidden" name="dishImage" class="dishImage" />
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">Delete Dish</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -95,6 +116,13 @@
     $(".price").val(dish.price);
     $(".category").val(dish.category);
     $(".description").val(dish.description);
+  }
+
+  function deleteDish(product) {
+    const dish = JSON.parse(product.replace("\\", "\/"));
+    $(".dishName").text(dish.title);
+    $(".dishId").val(dish._id);
+    $(".dishImage").val(dish.image);
   }
 </script>
 <%- include ("../partials/footer") %>

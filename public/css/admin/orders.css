@@ -16,3 +16,12 @@
     width: max-content;
     border-bottom: 3px red solid;
 }
+
+.table-heading {
+    background-color: #ffb300;
+    color: black;
+}
+
+.table-bordered {
+    border-color: #708090;
+}

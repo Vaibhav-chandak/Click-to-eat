@@ -1,5 +1,5 @@
 body {
-    background-color: deepskyblue;
+    background-color: #ffb300;
 }
 
 .main {
@@ -27,6 +27,6 @@ body {
     text-align: center;
     width: max-content;
     margin: auto;
-    border-bottom: deepskyblue 2px dashed;
+    border-bottom: #e2725b 2px dashed;
     margin-bottom: 2%;
 }

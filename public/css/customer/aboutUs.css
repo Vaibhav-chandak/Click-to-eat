@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap');
+body {
+    background: #eeeeee;
+}
+
+.aboutus-intro {
+    background-image: url("../../images/About-us/271687.jpg");
+    height: 70vh;
+    background-size: cover;
+}
+
+.heading {
+    font-size: 70px;
+    color: white;
+    margin-left: 5%;
+    margin-bottom: 1%;
+    font-family: 'Berkshire Swash', cursive;
+    animation: pop-in 1.5s ease-out forwards;
+}
+
+@keyframes pop-in {
+    0% {
+        opacity: 0;
+        transform: none;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(200%);
+    }
+}
+
+.resto {
+    font-size: 50px;
+    color: black;
+    font-family: 'Berkshire Swash', cursive;
+    text-align: center;
+    margin-top: 5%;
+}
+
+.para {
+    text-align: center;
+}
+
+.para1 {
+    text-align: center;
+    margin-top: -1%;
+}
+
+.divider {
+    margin-left: 43%;
+}
+
+/*Photo Slider*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#slider {
+    margin: 0 auto;
+    width: 40%;
+    overflow: hidden;
+    margin-top: 3%;
+}
+
+.slides {
+    overflow: hidden;
+    animation-name: fade;
+    animation-duration: 1s;
+    display: none;
+}
+
+#dot {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.dot {
+    display: inline-block;
+    width: 3%;
+    height: 5px;
+    background: #d3d3d3;
+    margin: 10px 5px;
+}
+
+.active {
+    background: black;
+}
+
+@media (max-width:567px) {
+    #slider {
+        width: 100%;
+    }
+}
+
+/*Restaurant*/
+
+.text {
+    padding-right: 20%;
+    margin-top: 5%;
+}
+
+.rest-para {
+    margin-top: 5%;
+    /*    font-family: serif;*/
+    font-size: 17px;
+}
+
+.rest-mage {
+    width: 75%;
+    /*   padding-top: 30%;*/
+    border-radius: 20px;
+    margin-top: 30%;
+    margin-left: -10%;
+}
+
+.wine {
+    width: 20vw;
+    margin-left: -70%;
+    margin-top: 63%;
+    border-radius: 20px;
+}
+
+.wine2 {
+    width: 20vw;
+    margin-left: -70%;
+    margin-top: 5%;
+    border-radius: 20px;
+}
+
+.Amenities {
+    background-color: lightgray;
+    margin-top: 5%;
+    padding: 5% 0;
+}
+
+.few-words {
+    font-family: 'Berkshire Swash', cursive;
+}
+
+.serving {
+    margin-top: 3%;
+    margin-bottom: 3%;
+}

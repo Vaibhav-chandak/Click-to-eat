@@ -2,7 +2,7 @@
 <div class="main">
   <h4 class="page-title"><%=title%></h4>
   <table class="table table-bordered">
-    <thead>
+    <thead class="table-heading">
       <tr>
         <th style="width: 15%" scope="col">Orders</th>
         <th style="width: 10%" scope="col">Customer</th>
@@ -27,8 +27,8 @@
         <td><%= orders[i].customerId.name %></td>
         <td><%= orders[i].customerId.address %></td>
         <td><%= orders[i].customerId.phoneNumber %></td>
-        <td>
-          <div>
+        <td style="text-align: center;">
+          <div >
             <form action="/admin/order/status" method="POST">
               <input type="hidden" name="orderId" value="<%=orders[i]._id%>" />
               <select name="status" onchange="this.form.submit()" class="px-4 py-2 rounded">

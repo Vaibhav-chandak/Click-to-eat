@@ -54,7 +54,6 @@ function adminDishController() {
                             return res.redirect("/admin/addDish");
                         }
                         req.flash("error", "Something went wrong!");
-                        console.log(err);
                         return res.redirect("/admin/addDish");
                     });
                 }
@@ -117,6 +116,8 @@ function adminDishController() {
         },
 
         deleteDish(req, res) {
+            const fs = require("fs");
+            fs.unlinkSync(req.body.dishImage);
             Product.findByIdAndDelete(req.body.dishId, (err, product) => {
                 if (err) {
                     req.flash("error", "Something went wrong, try again!");

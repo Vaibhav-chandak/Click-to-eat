@@ -11,12 +11,16 @@ body {
     width: max-content;
     margin: auto;
     margin-bottom: 2%;
-    border-bottom: deepskyblue 3px dashed;
+    border-bottom: #e2725b 3px dashed;
 }
 
 .table-heading {
-    background-color: deepskyblue;
+    background-color: #ffb300;
     color: black;
+}
+
+.table-bordered {
+    border-color: #708090;
 }
 
 .dish-img {
@@ -42,4 +46,8 @@ body {
 
 .submit-btn {
     margin-right: 2%;
+}
+
+.deleteDishForm {
+    display: inline;
 }
