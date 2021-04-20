@@ -9,6 +9,7 @@ const profileController = require("../app/http/controllers/customers/profileCont
 const adminOrderController = require("../app/http/controllers/admin/adminOrderController");
 const adminDishController = require("../app/http/controllers/admin/adminDishController");
 const adminComplaintController = require("../app/http/controllers/admin/adminComplaintController");
+const adminMyProfileController = require("../app/http/controllers/admin/adminMyProfileController");
 const multer = require("../app/http/middleware/multer");
 
 // Middlewares
@@ -47,12 +48,14 @@ function initRoutes(app) {
     app.get("/admin/addDish", adminAuth, adminDishController().addDish);
     app.get("/admin/viewDishes", adminAuth, adminDishController().viewDish);
     app.get("/admin/complaints", adminAuth, adminComplaintController().index);
+    app.get("/admin/myProfile", adminAuth, adminMyProfileController().index);
 
     app.post("/admin/order/status", adminAuth, adminOrderController().changeStatus);
     app.post("/admin/addDish", multer.single("image"), adminDishController().postAddDish);
     app.post("/admin/updateDish", multer.single("image"), adminDishController().updateDish);
     app.post("/admin/deleteDish", adminDishController().deleteDish);
     app.post("/admin/complaints", adminAuth, adminComplaintController().complaintSolved);
+    app.post("/admin/editProfile", adminAuth, adminMyProfileController().editProfile);
 }
 
 module.exports = initRoutes;

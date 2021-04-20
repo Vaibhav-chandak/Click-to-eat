@@ -1,0 +1,95 @@
+body {
+    background: #e6e6fa;
+    counter-reset: Serial
+}
+
+a:link, a:visited, a:active {
+    text-decoration: none
+}
+
+.user-profile {
+    background: rgba(255, 255, 255, 1);
+    margin: 10% auto;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    position: relative;
+    border-bottom: 5px solid #ccc;
+    width: 70%
+}
+
+.user-profile:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: #c4e17f;
+    border-radius: 5px 5px 0 0;
+    background: rgba(196, 225, 127, 1);
+    background: linear-gradient(to right, rgba(196, 225, 127, 1) 0, rgba(196, 225, 127, 1) 20%, rgba(42, 187, 155, 1) 20%, rgba(42, 187, 155, 1) 40%, rgba(255, 85, 1, 1) 40%, rgba(255, 85, 1, 1) 60%, rgba(42, 187, 155, 1) 60%, rgba(42, 187, 155, 1) 80%, rgba(196, 225, 127, 1) 80%, rgba(196, 225, 127, 1) 100%)
+}
+
+.section-heading {
+    margin: 18px 0;
+    padding-bottom: 10px;
+    width: 200px;
+    color: #1e439b;
+    border-bottom: 3px solid #ff5501;
+    font-weight: 600;
+}
+
+.profile-label {
+    margin: 1% auto .5%;
+    font-weight: 500;
+    cursor: text;
+}
+
+.details-input {
+    resize: none;
+    font-weight: bold;
+    border: 2px solid #bebed2;
+}
+
+.details-input:disabled {
+    cursor: text;
+}
+
+.relative {
+    position: relative
+}
+
+.input-icon:before {
+    color: #444;
+    padding: 10px;
+    position: absolute;
+    left: -3px;
+    text-align: center
+}
+
+.input-icon {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    text-align: center;
+    border-radius: 0 4px 4px 0;
+    z-index: 99;
+    border-left: 24px solid transparent;
+    border-right: 34px solid #ccc;
+    border-bottom: 38px solid #ccc;
+    transition: all .15s ease-in-out
+}
+
+.edit-btn, .save-btn, .logout-btn {
+    float: right;
+    transform: scale(0.8);
+}
+
+.edit-btn:focus, .save-btn:focus {
+    outline: none;
+    border: none;
+}
