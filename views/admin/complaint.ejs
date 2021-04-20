@@ -1,0 +1,73 @@
+<%- include ("../partials/header") %> <%- include ("../partials/adminNavbar") %>
+<div class="mt-5 px-5">
+  <h3 class="heading">Complaints</h3>
+  <% if(messages.error) {%>
+  <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
+    <%= messages.error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% } else if(messages.success) {%>
+  <div class="alert alert-success alert-dismissible fade show errors-div" role="alert">
+    <%= messages.success %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% } %>
+  <table class="table table-bordered">
+    <thead>
+      <tr class="table-heading">
+        <th style="width: 20%" scope="col">User</th>
+        <th style="width: 20%" scope="col">Subject</th>
+        <th style="width: 40%" scope="col">Query</th>
+        <th style="width: 5%; text-align: center" scope="col">Solved</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% queries.forEach(query => { %>
+      <tr>
+        <td scope="col">
+          <dfn data-contact="Contact: <%=query.customerId.phoneNumber%>" data-email="Email:<%=query.customerId.email%>" data-address="Address: <%=query.customerId.address%>"><%=query.customerId.name%></dfn>
+        </td>
+        <td scope="col"><%=query.subject%></td>
+        <td scope="col"><%=query.message%></td>
+        <td style="text-align: center">
+          <button type="button" onclick="markSolved('<%=JSON.stringify(query)%>')" class="btn" data-bs-toggle="modal" data-bs-target="#solvedModal"><i class="fas fa-check"></i></button>
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal for cross check before marking a query solved -->
+<div class="modal fade" id="solvedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Mark solved?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-success">Do you really want to mark issue of <span class="text-dark userName" style="font-weight: bold"></span> solved?</p>
+        <p class="text-danger">This action is irreversible!</p>
+      </div>
+      <div class="modal-footer">
+        <form action="/admin/complaints" method="POST" class="deleteDishForm">
+          <input type="hidden" name="queryId" class="queryId" />
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Mark solved</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+  function markSolved(query) {
+    const parsedQuery = JSON.parse(query.replace("\\", "\/"));
+    $(".userName").text(parsedQuery.customerId.name);
+    console.log(parsedQuery);
+    $(".queryId").val(parsedQuery._id);
+  }
+</script>
+<%- include ("../partials/footer") %>

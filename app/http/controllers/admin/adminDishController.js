@@ -98,9 +98,6 @@ function adminDishController() {
                     res.redirect("/admin/viewDishes");
                 });
             } else {
-                // Do delete the old image from server
-                const fs = require("fs");
-                fs.unlinkSync(req.body.dishImage);
                 // Update data if there is image too
                 Product.findByIdAndUpdate(req.body.id, {
                     title: _.capitalize(title),
@@ -116,8 +113,6 @@ function adminDishController() {
         },
 
         deleteDish(req, res) {
-            const fs = require("fs");
-            fs.unlinkSync(req.body.dishImage);
             Product.findByIdAndDelete(req.body.dishId, (err, product) => {
                 if (err) {
                     req.flash("error", "Something went wrong, try again!");
