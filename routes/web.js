@@ -22,6 +22,11 @@ function initRoutes(app) {
     app.get("/", homeController().index);
     app.get("/home", homeController().homeIndex);
     app.get("/login", guest, authController().login);
+    app.get("/forgetPassword", guest, authController().forgetPassword);
+    app.get("/resetPassword/:id/:token", guest, authController().resetPassword);
+
+    app.post("/forgetPassword", guest, authController().postForgetPassword);
+    app.post("/resetPassword/:id/:token", guest, authController().postResetPassword);
 
     // Customer Routes
     app.get("/register", guest, authController().register);

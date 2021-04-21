@@ -18,6 +18,11 @@
           <%= messages.error %>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        <% } else if(messages.success) {%>
+        <div class="alert alert-success alert-dismissible fade show errors-div" role="alert">
+          <%= messages.success %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <% } %>
         <h2 class="title">Sign in</h2>
         <div class="input-field">
@@ -29,6 +34,7 @@
           <input type="password" id="password" name="password" placeholder="Password" autocomplete="off" required />
           <span id="togglePassword" class="fa fa-fw fa-eye field-icon toggle-password"></span>
         </div>
+        <span><a href="/forgetPassword">Forgot Password?</a></span>
         <input type="submit" value="Sign In" class="btn solid" />
         <p class="social-text">Or Sign in with social platforms</p>
         <div class="social-media">

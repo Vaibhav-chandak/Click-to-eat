@@ -2,6 +2,20 @@ const User = require("../../models/User");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const _ = require("lodash");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+var ejs = require("ejs");
+const path = require("path");
+
+// Setting nodemailer to send mails
+const transporter = nodemailer.createTransport({
+    service: "hotmail",
+    auth: {
+        user: "ClickNEat1@outlook.com",
+        pass: "Vaibhav@1"
+    }
+});
+const JWT_SECRET = process.env.JWT_SECRET;
 
 function authController() {
     return {
@@ -103,6 +117,147 @@ function authController() {
             }).catch(err => {
                 req.flash("error", "Something went wrong!");
                 return res.redirect("/register");
+            });
+        },
+
+        forgetPassword(req, res) {
+            res.render("forgetPassword", {
+                title: "Forget Password",
+                style: "forgetPassword"
+            });
+        },
+
+        postForgetPassword(req, res) {
+            // Check if the email field is not empty
+            if (!req.body.email.trim()) {
+                req.flash("error", "Please enter valid email address");
+                return res.redirect("/forgetPassword");
+            }
+
+            // Make sure user exists in database
+            User.findOne({ email: req.body.email }, (err, user) => {
+                if (err) {
+                    console.log(err);
+                    req.flash("error", "Something went wrong!");
+                    return res.redirect("/forgetPassword");
+                }
+                if (!user) {
+                    req.flash("error", "No user with this email found!");
+                    return res.redirect("/forgetPassword");
+                } else {
+                    // User exists, so create a one time link which is valid for 15 minutes
+                    const secret = JWT_SECRET + user.password;
+                    const payload = {
+                        email: user.email,
+                        id: user._id
+                    }
+                    const token = jwt.sign(payload, secret, { expiresIn: "30m" });
+                    const link = `http://localhost:3000/resetPassword/${user._id}/${token}`;
+
+                    // Send email
+                    ejs.renderFile(path.join(__dirname, "..", "..", "..", "/views/email-data.ejs"), { name: user.name, link: link }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                            req.flash("error", "Something went wrong!");
+                            return res.redirect("/forgetPassword");
+                        } else {
+                            const options = {
+                                from: "ClickNEat1@outlook.com",
+                                to: "Vaibhavchandak@hotmail.com",
+                                subject: "Password Reset",
+                                html: data
+                            }
+
+                            transporter.sendMail(options, (err, info) => {
+                                if (err) {
+                                    req.flash("error", "Something went wrong!");
+                                    return res.redirect("/forgetPassword");
+                                }
+                                req.flash("success", "A password reset link has been sent to your email which is valid for 30 minutes");
+                                return res.redirect("/forgetPassword");
+                            });
+                        }
+                    });
+                }
+            });
+        },
+
+        resetPassword(req, res) {
+            const { id, token } = req.params;
+
+            // Check if the user exists in database
+            User.findById(id, (err, user) => {
+                if (err) {
+                    console.log(err);
+                    req.flash("error", "Something went wrong, Try again!");
+                    return res.redirect("/login");
+                }
+                if (!user) {
+                    req.flash("error", "Invalid User!");
+                    return res.redirect("/login");
+                } else {
+                    // if we have valid user id
+                    const secret = JWT_SECRET + user.password;
+                    try {
+                        const payload = jwt.verify(token, secret);
+                        res.render("resetPassword", {
+                            title: "Reset Password",
+                            style: "resetPassword",
+                            name: user.name
+                        });
+                    } catch (error) {
+                        req.flash("error", "Either the time limit is expired or you already changed your password!");
+                        res.redirect("/login");
+                    }
+                }
+            });
+        },
+
+        postResetPassword(req, res) {
+            const { id, token } = req.params;
+            const { password, confirm_password } = req.body;
+
+            // Check if both password are entered
+            if (!password.trim() || !confirm_password.trim()) {
+                req.flash("error", "Both fields are mandatory!");
+                return res.redirect(`/resetPassword/${id}/${token}`);
+            }
+
+            // Check if both password are same
+            if (password !== confirm_password) {
+                req.flash("error", "Both password should match!");
+                return res.redirect(`/resetPassword/${id}/${token}`);
+            }
+
+            // Check if the user exists in database
+            User.findById(id, async (err, user) => {
+                if (err) {
+                    req.flash("error", "Something went wrong, Try again!");
+                    return res.redirect("/login");
+                }
+                if (!user) {
+                    req.flash("error", "Invalid User!");
+                    return res.redirect("/login");
+                }
+                const secret = JWT_SECRET + user.password;
+                try {
+                    const payload = jwt.verify(token, secret);
+                    const hashedPassword = await bcrypt.hash(password, 10);
+                    User.findByIdAndUpdate(id, { $set: { password: hashedPassword } }, (err, user) => {
+                        if (err) {
+                            req.flash("error", "Something went wrong, Try again!");
+                            return res.redirect("/login");
+                        }
+                        if (user) {
+                            req.flash("success", "Password changed successfully!");
+                            return res.redirect("/login");
+                        }
+                    });
+                } catch (error) {
+                    console.log(error);
+                    req.flash("error", "Something went wrong!");
+                    return res.redirect("/login");
+                }
             });
         },
 
