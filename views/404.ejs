@@ -1,0 +1,34 @@
+<%- include("partials/header") %>
+<!-- If user is logged in and is admin -->
+<% if(user) { if(user.role == "Admin") { %>
+<!-- show the admin navbar -->
+<%- include("partials/adminNavbar") %>
+<!-- if user is not admin -->
+<% } else { %>
+<!-- if user is customer display customer navbar -->
+<%- include("partials/navbar") %>
+<!-- if user is not logged in -->
+<% }} else {%>
+<!-- display customer navbar -->
+<%- include("partials/navbar") %> <% } %>
+<div class="main">
+  <h1 class="heading">Page not found</h1>
+</div>
+<div class="content">
+  <h3>IT LOOKS LIKE YOU ARE LOST</h3>
+  <p>The page you are looking for is not available!</p>
+  <a href="/home" class="btn btn-success">Go to home</a>
+</div>
+
+<!-- If user is logged in and is admin -->
+<% if(user) { if(user.role == "Admin") { %>
+<!-- do nothing -->
+<% } else { %>
+<!-- if user is customer display customer navbar -->
+<%- include("partials/contact-partial") %>
+<!-- if user is not logged in -->
+<% }} else {%>
+<!-- display customer navbar -->
+<%- include("partials/contact-partial") %> <% } %>
+<!-- include footer file for both admin and customer -->
+<%- include("partials/footer") %>

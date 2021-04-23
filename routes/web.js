@@ -62,6 +62,14 @@ function initRoutes(app) {
     app.post("/admin/deleteDish", adminDishController().deleteDish);
     app.post("/admin/complaints", adminAuth, adminComplaintController().complaintSolved);
     app.post("/admin/editProfile", [adminAuth, validation.editProfile], adminMyProfileController().editProfile);
+
+    // To handle 404
+    app.get("/*", (req, res) => {
+        res.render("404", {
+            title: "Page not found",
+            style: 404
+        });
+    });
 }
 
 module.exports = initRoutes;

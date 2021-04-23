@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+.navbar {
+    border: 1px solid black;
+}
+
+.main {
+    font-family: "Arvo", serif;
+    background-image: url("/images/404.gif");
+    height: 90vh;
+    padding-top: 5%;
+    text-align: center;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.content {
+    font-family: "Arvo", serif;
+    text-align: center;
+    margin-top: -5%;
+    margin-bottom: 5%;
+}
+
+.btn-success {
+    background-color: #39ac31;
+}
