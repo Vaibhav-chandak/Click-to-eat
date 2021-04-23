@@ -16,6 +16,7 @@ const multer = require("../app/http/middleware/multer");
 const auth = require("../app/http/middleware/checkAuthentication");
 const guest = require("../app/http/middleware/guest");
 const adminAuth = require("../app/http/middleware/adminAuthentication");
+const validation = require("../app/http/middleware/validation");
 
 function initRoutes(app) {
     // Common routes
@@ -26,7 +27,7 @@ function initRoutes(app) {
     app.get("/resetPassword/:id/:token", guest, authController().resetPassword);
 
     app.post("/forgetPassword", guest, authController().postForgetPassword);
-    app.post("/resetPassword/:id/:token", guest, authController().postResetPassword);
+    app.post("/resetPassword/:id/:token", [guest, validation.resetPassword], authController().postResetPassword);
 
     // Customer Routes
     app.get("/register", guest, authController().register);
@@ -38,9 +39,9 @@ function initRoutes(app) {
     app.get("/about", aboutUsController().index);
     app.get("/logout", auth, authController().logout);
 
-    app.post("/editProfile", auth, profileController().editProfile);
-    app.post("/register", guest, authController().postRegister);
+    app.post("/register", [guest, validation.signup], authController().postRegister);
     app.post("/login", guest, authController().postLogin);
+    app.post("/editProfile", [auth, validation.editProfile], profileController().editProfile);
     app.post("/contact", contactUsController().postQuery);
     app.post("/updateCart", cartController().updateCart);
     app.post("/removeOne", cartController().removeOne);
@@ -60,7 +61,7 @@ function initRoutes(app) {
     app.post("/admin/updateDish", multer.single("image"), adminDishController().updateDish);
     app.post("/admin/deleteDish", adminDishController().deleteDish);
     app.post("/admin/complaints", adminAuth, adminComplaintController().complaintSolved);
-    app.post("/admin/editProfile", adminAuth, adminMyProfileController().editProfile);
+    app.post("/admin/editProfile", [adminAuth, validation.editProfile], adminMyProfileController().editProfile);
 }
 
 module.exports = initRoutes;

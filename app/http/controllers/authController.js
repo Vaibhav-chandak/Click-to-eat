@@ -61,31 +61,14 @@ function authController() {
             res.render("customer/register", {
                 title: "Register Page",
                 style: "customer/login",
-                errors: [],
-                name: "",
-                email: "",
-                phoneNumber: "",
-                gender: 'None',
-                address: ""
             });
         },
 
         // Let new user register
         async postRegister(req, res) {
             const { name, email, password, phone, gender, address } = req.body;
-            // Check for empty requests
-            if (!name.trim() || !email.trim() || !password.trim() || !phone.trim() || !gender.trim() || !address.trim()) {
-                req.flash("error", "All fields are mandatory");
-                req.flash('name', name);
-                req.flash('email', email);
-                req.flash('phone', phone);
-                req.flash('gender', gender);
-                req.flash('address', address);
-                return res.redirect("/register");
-            }
-
             // Check if email or phone number already exists
-            User.exists({ $or: [{ email: email }, { phoneNumber: phone }] }, (err, result) => {
+            await User.exists({ $or: [{ email: email }, { phoneNumber: phone }] }, (err, result) => {
                 if (result) {
                     req.flash("error", "Email or phone number already in use!");
                     req.flash('name', name);
@@ -111,7 +94,10 @@ function authController() {
             });
             user.save().then(() => {
                 req.login(user, (err) => {
-                    if (err) { return next(err); }
+                    if (err) {
+                        req.flash("error", "Something went wrong!")
+                        return res.redirect("/register");
+                    }
                     return res.redirect("/home");
                 });
             }).catch(err => {
@@ -135,7 +121,7 @@ function authController() {
             }
 
             // Make sure user exists in database
-            User.findOne({ email: req.body.email }, (err, user) => {
+            User.findOne({ email: _.capitalize(req.body.email) }, (err, user) => {
                 if (err) {
                     console.log(err);
                     req.flash("error", "Something went wrong!");
@@ -163,7 +149,7 @@ function authController() {
                         } else {
                             const options = {
                                 from: "ClickNEat1@outlook.com",
-                                to: "Vaibhavchandak@hotmail.com",
+                                to: user.email,
                                 subject: "Password Reset",
                                 html: data
                             }

@@ -11,6 +11,11 @@
       <%= messages.error %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    <% } else if(messages.success) {%>
+    <div class="alert alert-success alert-dismissible fade show errors-div" role="alert">
+      <%= messages.success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <% } %>
     <div class="form-group">
       <label class="profile-label">Your Name:</label>

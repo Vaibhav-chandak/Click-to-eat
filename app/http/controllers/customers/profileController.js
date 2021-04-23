@@ -29,16 +29,6 @@ function profileController() {
                 return res.redirect("/myProfile");
             }
 
-            if (isNaN(phoneNumber)) {
-                req.flash("error", "Phone number can only have numeric value");
-                return res.redirect("/myProfile");
-            }
-
-            if (phoneNumber.toString().length != 10) {
-                req.flash("error", "Phone number can only have 10 digits")
-                return res.redirect("/myProfile");
-            }
-
             User.findByIdAndUpdate(req.user._id, {
                 name: _.capitalize(name),
                 email: _.capitalize(email),
@@ -46,6 +36,7 @@ function profileController() {
                 phoneNumber: phoneNumber,
                 address: address
             }, (err, user) => {
+                req.flash("success", "Profile updated successfully!");
                 res.redirect("/myProfile");
             });
         }
