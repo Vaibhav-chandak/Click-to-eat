@@ -9,7 +9,7 @@ const express = require("express"),
 
 const app = express();
 
-const url = process.env.MONGO_URL;
+const url = process.env.MONGO_ONLINE_URL;
 
 app.set('view engine', 'ejs');
 app.use(express.json());
@@ -48,7 +48,11 @@ app.use((req, res, next) => {
 // Local / my files
 require("./routes/web")(app);
 
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 3000;
+}
 // Start server
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log("Server is running at port 3000!");
 });
