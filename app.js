@@ -21,7 +21,7 @@ app.use(session({
     secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: url }),
+    store: MongoStore.create({ mongoUrl: "mongodb+srv://Admin-Vaibhav:Vaibhav@121@major-project.psesh.mongodb.net/ofdsDB?retryWrites=true&w=majority" }),
     cookie: { maxAge: 24 * 60 * 60 * 1000 } //24 hours
 }));
 
