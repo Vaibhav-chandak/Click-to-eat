@@ -138,7 +138,7 @@ function authController() {
                         id: user._id
                     }
                     const token = jwt.sign(payload, secret, { expiresIn: "30m" });
-                    const link = `http://localhost:3000/resetPassword/${user._id}/${token}`;
+                    const link = `https://blooming-journey-34432.herokuapp.com/resetPassword/${user._id}/${token}`;
 
                     // Send email
                     ejs.renderFile(path.join(__dirname, "..", "..", "..", "/views/email-data.ejs"), { name: user.name, link: link }, function (err, data) {
