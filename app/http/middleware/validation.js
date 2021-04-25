@@ -71,7 +71,7 @@ exports.editProfile = [
         if (!errors.isEmpty()) {
             // return res.status(422).json({ errors: errors.array() });
             req.flash("error", errors.array()[0].msg);
-            return res.redirect("/myProfile");
+            return res.redirect(req.get('referer'));
         } else {
             next();
         }

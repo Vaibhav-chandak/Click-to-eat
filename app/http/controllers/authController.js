@@ -159,7 +159,7 @@ function authController() {
                                     req.flash("error", "Something went wrong!");
                                     return res.redirect("/forgetPassword");
                                 }
-                                req.flash("success", "A password reset link has been sent to your email which is valid for 30 minutes");
+                                req.flash("success", "A password reset link has been sent to your email which is valid for 30 minutes. Please check your junk/spam folder along with inbox.");
                                 return res.redirect("/forgetPassword");
                             });
                         }

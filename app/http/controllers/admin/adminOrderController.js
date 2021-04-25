@@ -7,7 +7,7 @@ function adminOrderController() {
     return {
         index(req, res) {
             // Show all the orders other than completed or cancelled orders
-            Order.find({ status: { $nin: ['Completed', 'Cancelled'] } }, null, { sort: { 'createdAt': -1 } }).populate('customerId', '-password').exec((err, orders) => {
+            Order.find({ status: { $nin: ['Delivered', 'Cancelled'] } }, null, { sort: { 'createdAt': -1 } }).populate('customerId', '-password').exec((err, orders) => {
                 return res.render("admin/orders", {
                     title: "Current orders",
                     style: "admin/orders",
