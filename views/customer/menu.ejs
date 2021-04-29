@@ -22,14 +22,7 @@
         <div class="menu-content">
           <h4><%=items[i].title%><span>₹<%=items[i].price%></span></h4>
           <p><%=items[i].description%></p>
-          <div class="bottom-buttons">
-            <div class="qty-input">
-              <button class="qty-count qty-count--minus" data-action="minus" type="button" disabled="true">-</button>
-              <input class="product-qty" type="number" name="product-qty" min="1" max="10" value="1" />
-              <button class="qty-count qty-count--add" data-action="add" type="button">+</button>
-            </div>
-            <button data-dish="<%= JSON.stringify(items[i]) %>" type="submit" class="btn btn-primary addToCartBtn">Add to cart</button>
-          </div>
+          <button data-dish="<%= JSON.stringify(items[i]) %>" type="submit" class="btn btn-primary addToCartBtn">Add to cart</button>
         </div>
       </div>
 
