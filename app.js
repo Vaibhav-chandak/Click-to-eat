@@ -9,7 +9,7 @@ const express = require("express"),
 
 const app = express();
 
-const url = process.env.MONGO_ONLINE_URL;
+const url = process.env.MONGO_URL;
 
 app.set('view engine', 'ejs');
 app.use(express.json());
