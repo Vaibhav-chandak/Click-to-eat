@@ -7,9 +7,8 @@
 
 .intro-div {
     height: 100vh;
-    background-image: url("../../images/home_background.jpg");
+    background-image: url("../../images/home_background2.jpg");
     background-size: cover;
-    /* background-attachment: fixed; */
 }
 
 .intro-details {
