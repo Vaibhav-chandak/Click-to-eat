@@ -20,16 +20,16 @@
         right: 0;
         bottom: 0;
         background-color: #fff; /* change if the mask should have another color then white */
-        z-index: 99999; /* makes sure it stays on top */
+        z-index: 9; /* makes sure it stays on top */
       }
       #status {
-        width: 100px;
-        height: 100px;
+        width: 300px;
+        height: 300px;
         position: absolute;
-        left: 50%; /* centers the loading animation horizontally one the screen */
-        top: 50%; /* centers the loading animation vertically one the screen */
-        background-image: url("https://flevix.com/wp-content/uploads/2019/12/Color-Fill-loading-Image-1.gif");
-        z-index: 9999; /* path to your loading animation */
+        left: 40%; /* centers the loading animation horizontally one the screen */
+        top: 30%; /* centers the loading animation vertically one the screen */
+        background-image: url("/images/loading.gif");
+        z-index: 9; /* path to your loading animation */
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -42,3 +42,5 @@
     <div id="preloader">
       <div id="status"></div>
     </div>
+  </body>
+</html>
