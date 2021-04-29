@@ -165,3 +165,16 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
   text-align: center;
   margin: 5% auto;
 }
+
+.forget-password-div {
+  text-align: right;
+  width: 60%;
+}
+
+.forget-password {
+  text-decoration: none;
+}
+
+.forget-password:hover {
+  color: black;
+}
