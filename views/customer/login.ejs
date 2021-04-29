@@ -1,12 +1,10 @@
-<%- include ("../partials/header") %>
-<div class="container1 overflow-hidden row">
+<%- include ("../partials/header") %> <%- include ("../partials/navbar") %>
+<div class="container1 row">
   <div class="panel col-lg-6">
+    <div class="bg-left"></div>
     <div class="content">
-      <h3>New here ?</h3>
-      <p>Not having an account till now ? Sign up for free and order your favourite food, from our website</p>
-      <a href="/register">
-        <button class="btn transparent" id="sign-up-btn">Sign up</button>
-      </a>
+      <h1>Click N Eat</h1>
+      <p>At Click N Eat, we build products & solutions that redefine the food ordering & delivery.</p>
     </div>
   </div>
   <div class="forms-container col-lg-6">
@@ -36,22 +34,13 @@
         </div>
         <span><a href="/forgetPassword">Forgot Password?</a></span>
         <input type="submit" value="Sign In" class="btn solid" />
-        <p class="social-text">Or Sign in with social platforms</p>
-        <div class="social-media">
-          <a href="#" class="social-icon">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-google"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-        </div>
       </form>
+      <div class="change-page">
+        <p class="social-text">Or Sign up if you have no account yet</p>
+        <a href="/register">
+          <button class="btn transparent" id="sign-up-btn">Sign up</button>
+        </a>
+      </div>
     </div>
   </div>
 </div>
@@ -69,4 +58,4 @@
   });
 </script>
 
-<%- include ("../partials/footer") %>
+<%- include ("../partials/contact-partial") %> <%- include ("../partials/footer") %>

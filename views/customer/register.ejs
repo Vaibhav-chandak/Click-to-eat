@@ -1,13 +1,11 @@
-<%- include ("../partials/header") %>
+<%- include ("../partials/header") %> <%- include ("../partials/navbar") %>
 
 <div class="container1 row">
-  <div class="panel col-lg-6" style="margin-top: -10%">
+  <div class="panel col-lg-6">
+    <div class="bg-left"></div>
     <div class="content">
-      <h3>One of us ?</h3>
-      <p>Already have an account, just sign in and order your favourite food sitting at your home, from our website</p>
-      <a href="/login">
-        <button class="btn transparent" id="sign-in-btn">Sign in</button>
-      </a>
+      <h1>Click N Eat</h1>
+      <p>At Click N Eat, we build products & solutions that redefine the food ordering & delivery.</p>
     </div>
   </div>
   <div class="forms-container col-lg-6">
@@ -15,15 +13,15 @@
       <!-- Sign up form -->
       <form action="/register" method="POST" class="sign-up-form" onsubmit="return validate">
         <% if(messages.error) {%>
-          <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
-            <%= messages.error %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
+        <div class="alert alert-danger alert-dismissible fade show errors-div" role="alert">
+          <%= messages.error %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <% } %>
         <h2 class="title">Sign up</h2>
         <div class="input-field">
           <i class="fas fa-user"></i>
-          <input type="text" name="name" placeholder="Name" pattern="^(?!\s*$).+" title="Enter Your Full Name" value="<%=messages.name%>" required/>
+          <input type="text" name="name" placeholder="Name" pattern="^(?!\s*$).+" title="Enter Your Full Name" value="<%=messages.name%>" required />
         </div>
         <div class="input-field">
           <i class="fas fa-envelope"></i>
@@ -52,22 +50,13 @@
         </div>
 
         <input type="submit" class="btn signUpBtn" value="Sign up" />
-        <p class="social-text">Or Sign up with social platforms</p>
-        <div class="social-media">
-          <a href="#" class="social-icon">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-google"></i>
-          </a>
-          <a href="#" class="social-icon">
-            <i class="fab fa-linkedin-in"></i>
-          </a>
-        </div>
       </form>
+      <div class="change-page">
+        <p class="social-text">Or sign in if you already has an account</p>
+        <a href="/login">
+          <button class="btn transparent" id="sign-in-btn">Sign in</button>
+        </a>
+      </div>
     </div>
   </div>
 </div>
@@ -108,4 +97,4 @@
   });
 </script>
 
-<%- include ("../partials/footer") %>
+<%- include ("../partials/footer") %> <%- include ("../partials/contact-partial") %>
