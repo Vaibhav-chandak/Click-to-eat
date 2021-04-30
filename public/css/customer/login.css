@@ -52,7 +52,14 @@
 
 .signin-signup {
   width: 100%;
-  margin-top: 10%
+  margin-top: 10%;
+  height: 70vh;
+  overflow-y: scroll;
+}
+
+.signin-signup::-webkit-scrollbar {
+  width: 5px;
+  background-color: gray;
 }
 
 form {
