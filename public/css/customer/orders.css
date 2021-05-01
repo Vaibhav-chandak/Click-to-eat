@@ -1,8 +1,13 @@
+.navbar {
+    border-bottom: 1px solid black;
+}
+
 .heading {
     border-bottom: 2px solid orange;
     padding-bottom: 1%;
     width: 20%;
-    margin-bottom: 5%;
+    margin-bottom: 3%;
+    margin-top: 5%;
 }
 
 .main {

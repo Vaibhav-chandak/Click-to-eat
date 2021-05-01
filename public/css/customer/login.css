@@ -50,16 +50,39 @@
   margin: auto;
 }
 
+.forms-container {
+  padding-right: 0;
+}
+
 .signin-signup {
   width: 100%;
-  margin-top: 10%;
-  height: 70vh;
+  padding-top: 10%;
+  height: 80vh;
   overflow-y: scroll;
 }
 
+.signin-signup::-webkit-scrollbar-track {
+  background-color: transparent;
+  box-shadow: none;
+}
+
 .signin-signup::-webkit-scrollbar {
-  width: 5px;
-  background-color: gray;
+  width: 10px;
+  background-color: transparent;
+}
+
+.signin-signup::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+}
+
+.signin-signup::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 70px;
+}
+
+.signin-signup::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 70px;
 }
 
 form {
