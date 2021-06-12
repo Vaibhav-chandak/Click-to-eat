@@ -1,5 +1,3 @@
-const Query = require("../../../models/Query");
-
 function contactUsController() {
     return {
         index(req, res) {

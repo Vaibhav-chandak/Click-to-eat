@@ -16,7 +16,7 @@ function homeController() {
             }
 
             // If user is customer
-            let randomIndex = [];
+            let randomIndex = [2,5,3,6,8];
             // This function generates and stores a unique random number whenever called
             function generateUniqueRandom(maxNr) {
                 //Generate random number

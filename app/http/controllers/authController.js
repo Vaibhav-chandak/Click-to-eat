@@ -24,7 +24,6 @@ function authController() {
             res.render("customer/login", {
                 title: "Login Page",
                 style: "customer/login",
-                errors: []
             });
         },
 
@@ -138,7 +137,7 @@ function authController() {
                         id: user._id
                     }
                     const token = jwt.sign(payload, secret, { expiresIn: "30m" });
-                    const link = `https://blooming-journey-34432.herokuapp.com/resetPassword/${user._id}/${token}`;
+                    const link = `https://click-to-eat.herokuapp.com/resetPassword/${user._id}/${token}`;
 
                     // Send email
                     ejs.renderFile(path.join(__dirname, "..", "..", "..", "/views/email-data.ejs"), { name: user.name, link: link }, function (err, data) {
@@ -156,6 +155,7 @@ function authController() {
 
                             transporter.sendMail(options, (err, info) => {
                                 if (err) {
+                                    console.log(err);
                                     req.flash("error", "Something went wrong!");
                                     return res.redirect("/forgetPassword");
                                 }
