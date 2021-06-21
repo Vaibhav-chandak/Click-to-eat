@@ -11,8 +11,8 @@ const path = require("path");
 const transporter = nodemailer.createTransport({
     service: "hotmail",
     auth: {
-        user: "ClickNEat1@outlook.com",
-        pass: "Vaibhav@1"
+        user: PROCESS.ENV.COMPANY_EMAIL,
+        pass: PROCESS.ENV.COMPANY_PASS
     }
 });
 const JWT_SECRET = process.env.JWT_SECRET;
